@@ -1,0 +1,153 @@
+.primary-red { background-color: #D62828; }
+.primary-red:hover { background-color: #B71C1C; }
+.text-primary-red { color: #D62828; }
+.border-primary-red { border-color: #D62828; }
+
+/* Animated Background */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(-45deg, #fef2f2, #fff7ed, #fef2f2, #fff1f2, #fef2f2);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(214, 40, 40, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(214, 40, 40, 0); }
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Code Input Styling */
+.verify-code-input {
+    transition: all 0.3s ease;
+    font-weight: 600;
+    border: 2px solid #e5e7eb;
+    letter-spacing: 0.5em;
+}
+
+.verify-code-input:focus {
+    border-color: #D62828;
+    transform: scale(1.02);
+    box-shadow: 0 0 0 4px rgba(214, 40, 40, 0.1);
+    background-color: #fff;
+}
+
+.verify-code-input.filled {
+    border-color: #10b981;
+    background-color: #f0fdf4;
+}
+
+.verify-code-input::placeholder {
+    letter-spacing: 0.3em;
+    color: #d1d5db;
+}
+
+/* Success Checkmark Animation */
+@keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.checkmark-animation {
+    animation: checkmark 0.5s ease-in-out;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Card Hover Effect */
+.verify-card {
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.verify-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Loading State */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Fade In Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Icon Animation */
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.icon-bounce {
+    animation: iconBounce 2s ease-in-out infinite;
+}
