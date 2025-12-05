@@ -133,11 +133,9 @@ public class UserService {
                     VerificationMail verificationMail = new VerificationMail(u.getEmail(), verificationCode);
                     MailProvider.getInstance().sendMail(verificationMail);
                     /// verification-mail-sending-end
-//
                     status = true;
                     message = "Account created successfully. Verification code has been sent to the your email. " +
                             "Please verify it for activate your account!";
-//
 
                 } catch (HibernateException e) {
                     transaction.rollback();

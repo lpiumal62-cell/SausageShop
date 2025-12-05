@@ -1,6 +1,7 @@
 package com.eagle.sausageshop;
 
 import com.eagle.sausageshop.config.AppConfig;
+import com.eagle.sausageshop.listener.ContextPathListener;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -22,7 +23,7 @@ public class main {
             Context context = tomcat.addWebapp(CONTEXT_PATH, new File("src/main/webapp").getAbsolutePath());
             Tomcat.addServlet(context, "JerseyServlet", new ServletContainer(new AppConfig()));
             context.addServletMappingDecoded("/api/*", "JerseyServlet");
-//            context.addApplicationListener(ContextPathListener.class.getName());
+            context.addApplicationListener(ContextPathListener.class.getName());
             tomcat.start();
             System.out.println("App URL: http://localhost:" + SERVER_PORT + CONTEXT_PATH);
             tomcat.getServer().await();

@@ -17,7 +17,7 @@ public class MailProvider {
     private Authenticator authenticator;
     private final BlockingQueue<Runnable> blockingQueue = new LinkedBlockingQueue<>();
     private final Properties properties = new Properties();
-    private static MailProvider mailServiceProvider;
+    private static MailProvider mailProvider;
 
     private MailProvider() {
         properties.put("mail.smtp.auth", true);
@@ -27,10 +27,10 @@ public class MailProvider {
     }
 
     public static MailProvider getInstance() {
-        if (mailServiceProvider == null) {
-            mailServiceProvider = new MailProvider();
+        if (mailProvider == null) {
+            mailProvider = new MailProvider();
         }
-        return mailServiceProvider;
+        return mailProvider;
     }
 
     public void start() {

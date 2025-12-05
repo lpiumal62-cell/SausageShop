@@ -1,8 +1,8 @@
 let params = new URLSearchParams(window.location.search);
-
+// console.log(params);
 const verificationCode = document.getElementById("verificationCode").value;
 verificationCode.value = params.get("verificationCode");
-const email = document.getElementById("email");
+const user = params.get("email");
 
 
 // alert(verificationCode)
@@ -15,7 +15,7 @@ async function verifyType() {
         svgColor: '#0284c7'
     });
     const verifyObj = {
-        email: email,
+        email: user,
         verificationCode: verificationCode.value
     }
     try {
