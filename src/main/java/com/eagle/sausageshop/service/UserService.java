@@ -13,63 +13,83 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import static com.eagle.sausageshop.util.AppUtil.GSON;
+
 public class UserService {
+
 
     public String verifyAccount(UserDTO userDTO) {
         JsonObject responseObject = new JsonObject();
         boolean status = false;
         String message = "";
 
-        ///  logic handling part
-        if (userDTO.getEmail() == null) {
-            message = "Email is required!";
-        } else if (userDTO.getEmail().isBlank()) {
-            message = "Email address can not be empty!";
-        } else if (!userDTO.getEmail().matches(Validator.EMAIL_VALIDATION)) {
-            message = "Please provide valid email address!";
-        } else if (userDTO.getVerificationCode() == null) {
-            message = "Verification is required!";
-        } else if (userDTO.getVerificationCode().isBlank()) {
-            message = "Verification code can not be empty!";
-        } else if (!userDTO.getVerificationCode().matches(Validator.VERIFICATION_CODE_VALIDATION)) {
-            message = "Please provide valid verification code!. Verification code must have 6 digits";
-        } else {
-            Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
-            User user = hibernateSession.createQuery("FROM User u WHERE u.email=:email AND u.verificationCode=:verificationCode", User.class)
-                    .setParameter("email", userDTO.getEmail())
-                    .setParameter("verificationCode", userDTO.getVerificationCode())
-                    .getSingleResultOrNull();
-            if (user == null) {
-                message = "Account not found. Please register first!";
-            } else {
-                Status verifiedStatus = hibernateSession.createNamedQuery("Status.findByValue", Status.class)
-                        .setParameter("value", String.valueOf(Status.Type.VERIFIED))
-                        .getSingleResult();
+        // Extract values
+        String email = userDTO.getEmail();
+        String code = userDTO.getVerificationCode();
 
-                if (user.getStatus().equals(verifiedStatus)) {
-                    message = "Account already verified!";
+        // Validate inputs
+        if (email == null || email.isBlank()) {
+            message = "Email is required!";
+        } else if (code == null) {
+            message = "Verification code is required!";
+        } else if (code.isBlank()) {
+            message = "Verification code is empty!";
+        } else if (!code.matches(Validator.VERIFICATION_CODE_VALIDATION)) {
+            message = "Please provide a valid verification code!";
+        } else {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+
+            try {
+                // Fetch user using email + code
+                User user = session.createQuery(
+                                "FROM User u WHERE u.email = :email AND u.verificationCode = :verificationCode",
+                                User.class
+                        )
+                        .setParameter("email", email)
+                        .setParameter("verificationCode", code)
+                        .uniqueResult();
+
+                if (user == null) {
+                    message = "Invalid verification code or email!";
                 } else {
-                    user.setStatus(verifiedStatus);
-                    user.setVerificationCode("");
-                    Transaction transaction = hibernateSession.beginTransaction();
-                    try {
-                        hibernateSession.merge(user);
-                        transaction.commit();
-                        status = true;
-                        message = "Account verification completed!";
-                    } catch (HibernateException e) {
-                        transaction.rollback();
-                        message = "Something went wrong. Verification process failed!";
+
+                    // Get verified status
+                    Status verifiedStatus = session.createNamedQuery("Status.findByValue", Status.class)
+                            .setParameter("value", String.valueOf(Status.Type.VERIFIED))
+                            .getSingleResult();
+
+                    if (user.getStatus().equals(verifiedStatus)) {
+                        message = "Account is already verified!";
+                    } else {
+                        Transaction tx = session.beginTransaction();
+                        try {
+                            user.setStatus(verifiedStatus);
+                            user.setVerificationCode(""); // Clear code after success
+                            session.merge(user);
+                            tx.commit();
+
+                            status = true;
+                            message = "Account verification completed!";
+                        } catch (Exception e) {
+                            tx.rollback();
+                            message = "Something went wrong. Verification failed!";
+                        }
                     }
                 }
+
+            } catch (Exception e) {
+                message = "Unexpected error occurred!";
+            } finally {
+                session.close();
             }
-            hibernateSession.close();
         }
 
+        // Build JSON response
         responseObject.addProperty("status", status);
         responseObject.addProperty("message", message);
-        return AppUtil.GSON.toJson(responseObject);
+        return GSON.toJson(responseObject);
     }
+
 
     public String NewUser(UserDTO userDTO) {
         JsonObject responseObject = new JsonObject();
@@ -128,12 +148,14 @@ public class UserService {
                 try {
                     hibernateSession.persist(u);
                     transaction.commit();
+                    //System.out.println(u.getId());
 
                     /// verification-mail-sending-start
                     VerificationMail verificationMail = new VerificationMail(u.getEmail(), verificationCode);
                     MailProvider.getInstance().sendMail(verificationMail);
                     /// verification-mail-sending-end
                     status = true;
+                    responseObject.addProperty("uId", u.getId());
                     message = "Account created successfully. Verification code has been sent to the your email. " +
                             "Please verify it for activate your account!";
 
@@ -148,6 +170,6 @@ public class UserService {
         }
         responseObject.addProperty("status", status);
         responseObject.addProperty("message", message);
-        return AppUtil.GSON.toJson(responseObject);
+        return GSON.toJson(responseObject);
     }
 }

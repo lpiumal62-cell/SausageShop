@@ -31,9 +31,12 @@ async function signUp() {
             // console.log(data);
             if (data.status) {
                 Notiflix.Report.success(
-                    'SausageShop successfully signed up',
+                    'SausageShop',
                     data.message,
-                    'Okay'
+                    'Okay',
+                    () => {
+                        window.location = "signin.html";
+                    }
                 );
             } else {
                 Notiflix.Notify.failure(data.message,{

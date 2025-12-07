@@ -43,7 +43,7 @@ public class MailProvider {
         executor = new ThreadPoolExecutor(2, 5, 5,
                 TimeUnit.SECONDS, blockingQueue, new ThreadPoolExecutor.AbortPolicy());
         executor.prestartCoreThread();
-        System.out.println("\u001B[32mEmailServiceProvider Initialized...\u001B[32m");
+        System.out.println("\u001B[32mEmail Service Provider Initialized...\u001B[32m");
     }
 
     public Properties getProperties() {

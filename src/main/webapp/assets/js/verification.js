@@ -1,44 +1,45 @@
 let params = new URLSearchParams(window.location.search);
-// console.log(params);
-const verificationCode = document.getElementById("verificationCode").value;
-verificationCode.value = params.get("verificationCode");
+
+const verificationCodeInput = document.getElementById("verificationCode");
+
+// Set verification code from URL into input
+verificationCodeInput.value = params.get("verificationCode");
+
 const user = params.get("email");
 
-
-// alert(verificationCode)
-
-
 async function verifyType() {
-    // alert("ok");
     Notiflix.Loading.pulse("Wait...", {
         clickToClose: false,
         svgColor: '#0284c7'
     });
+
     const verifyObj = {
         email: user,
-        verificationCode: verificationCode.value
-    }
+        verificationCode: verificationCodeInput.value
+    };
+
     try {
-        const response = await fetch("api/verify-accounts",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
+        const response = await fetch("api/verify-accounts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-            body:JSON.stringify(verifyObj)
+            body: JSON.stringify(verifyObj)
         });
+
         if (response.ok) {
             const data = await response.json();
             console.log(data);
+
             if (data.status) {
                 Notiflix.Report.success(
                     'SausageShop',
                     data.message,
                     'Okay',
                     () => {
-                        window.location = "sign-in.html"
-                    },
+                        window.location = "signin.html";
+                    }
                 );
-
             } else {
                 Notiflix.Notify.failure(data.message);
             }
@@ -46,11 +47,9 @@ async function verifyType() {
             Notiflix.Notify.failure("Verification process failed!");
         }
 
-
     } catch (e) {
-        Notiflix.Notify.failure(e);
+        Notiflix.Notify.failure(e.message || e);
     } finally {
         Notiflix.Loading.remove(1000);
     }
-
 }
