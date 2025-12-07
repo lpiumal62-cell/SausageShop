@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - Sausage Delight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Wishlist Header -->
+    <section class="bg-orange-600 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-2">My Wishlist</h1>
+            <p class="text-xl opacity-90">Your favorite products</p>
+        </div>
+    </section>
+
+    <!-- Wishlist Content -->
+    <section class="py-12 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-orange-50 via-transparent to-white pointer-events-none"></div>
+        <div class="container mx-auto px-4 relative space-y-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-3xl shadow-xl border border-orange-100 p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Saved Picks</p>
+                        <p id="wishlistItemCount" class="text-4xl font-extrabold text-gray-900">0</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Potential Savings</p>
+                        <p id="wishlistSavings" class="text-2xl font-bold text-emerald-500">$0.00</p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl shadow-xl text-white p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm uppercase tracking-wide text-white/80">Quick Actions</p>
+                        <h3 class="text-2xl font-semibold mt-2">Treat yourself today</h3>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <button id="wishlistClearBtn" class="bg-white/15 border border-white/30 rounded-2xl px-4 py-2 text-sm font-semibold hover:bg-white/25 transition">
+                            <i class="fas fa-trash-alt mr-2"></i>Clear All
+                        </button>
+                        <button id="wishlistShareBtn" class="bg-white text-orange-600 rounded-2xl px-4 py-2 text-sm font-semibold hover:-translate-y-0.5 transition shadow-lg">
+                            <i class="fas fa-share-alt mr-2"></i>Share List
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 flex flex-col gap-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-500 font-semibold">Sort by</p>
+                        <select id="wishlistSortSelect" class="border border-gray-200 rounded-2xl px-4 py-2 text-sm focus:ring-2 focus:ring-orange-500">
+                            <option value="recent">Recently Added</option>
+                            <option value="price_low">Price: Low to High</option>
+                            <option value="price_high">Price: High to Low</option>
+                            <option value="rating">Top Rated</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-wrap gap-3" id="wishlistTagFilters">
+                        <!-- dynamic filters -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="wishlistEmpty" class="hidden text-center py-16 bg-white rounded-3xl shadow-lg border border-dashed border-gray-200">
+                <i class="fas fa-heart text-6xl text-gray-300 mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-700 mb-4">Your wishlist is empty</h2>
+                <p class="text-gray-500 mb-6">Start adding products you love to your wishlist!</p>
+                <a href="shop.html" class="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 shadow-lg hover:shadow-xl transition">
+                    Browse Products
+                </a>
+            </div>
+            
+            <div id="wishlistContent" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <!-- Wishlist items will be loaded here -->
+            </div>
+
+            <div id="wishlistRecommendations" class="hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-wide text-orange-500">Inspired by your favorites</p>
+                        <h3 class="text-3xl font-bold text-gray-900">Recommended For You</h3>
+                    </div>
+                    <a href="shop.html" class="text-sm font-semibold text-orange-600 hover:text-orange-700">View all <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="wishlistRecommendationGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/load-components.js"></script>
+    <script src="assets/js/background-animations.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/wishlist.js"></script>
+</body>
+</html>
