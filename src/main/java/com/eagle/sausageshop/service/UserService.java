@@ -9,6 +9,9 @@ import com.eagle.sausageshop.util.AppUtil;
 import com.eagle.sausageshop.util.HibernateUtil;
 import com.eagle.sausageshop.validation.Validator;
 import com.google.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.ws.rs.core.Context;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,6 +19,57 @@ import org.hibernate.Transaction;
 import static com.eagle.sausageshop.util.AppUtil.GSON;
 
 public class UserService {
+
+
+    public String Login(UserDTO userDTO, @Context HttpServletRequest request) {
+        JsonObject responseObject = new JsonObject();
+        boolean status = false;
+        String message = "";
+
+        if (userDTO.getEmail() == null) {
+            message = "Email is required!";
+        } else if (userDTO.getEmail().isBlank()) {
+            message = "Email address can not be empty!";
+        } else if (!userDTO.getEmail().matches(Validator.EMAIL_VALIDATION)) {
+            message = "Please provide valid email address!";
+        } else if (userDTO.getPassword() == null) {
+            message = "Password is required!";
+        } else if (userDTO.getPassword().isBlank()) {
+            message = "Password can not be empty!";
+        } else if (!userDTO.getPassword().matches(Validator.PASSWORD_VALIDATION)) {
+            message = "Please provide valid password. \n " +
+                    "The password must be at least 8 characters long and include at least one uppercase letter, " +
+                    "one lowercase letter, one digit, and one special character";
+        } else {
+            Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
+            User singleUser = hibernateSession.createNamedQuery("User.getByEmail", User.class)
+                    .setParameter("email", userDTO.getEmail())
+                    .getSingleResultOrNull();
+            if (singleUser == null) { // not found
+                message = "Account not found. Please register first!";
+            } else {
+                if (!singleUser.getPassword().equals(userDTO.getPassword())) {
+                    message = "Something went wrong. Please check your login credentials!";
+                } else {
+                    Status verifiedStatus = hibernateSession.createNamedQuery("Status.findByValue", Status.class)
+                            .setParameter("value", String.valueOf(Status.Type.VERIFIED))
+                            .getSingleResult();
+                    if (!singleUser.getStatus().equals(verifiedStatus)) {
+                        message = "Your account is not verified. Please verify first!";
+                    } else {
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("user", singleUser);
+                        status = true;
+                        message = "Login successful";
+                    }
+                }
+            }
+            hibernateSession.close();
+        }
+        responseObject.addProperty("status", status);
+        responseObject.addProperty("message", message);
+        return AppUtil.GSON.toJson(responseObject);
+    }
 
 
     public String verifyAccount(UserDTO userDTO) {

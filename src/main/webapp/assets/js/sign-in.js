@@ -1,50 +1,45 @@
-async function signUp() {
+async function signIn() {
+    // alert("ok");
     Notiflix.Loading.pulse("Wait...", {
         clickToClose: false,
         svgColor: '#0284c7'
     });
-
-
-    let firstName = document.getElementById("firstName");
-    let lastName = document.getElementById("lastName");
     let email = document.getElementById("email");
-    let password = document.getElementById("password");
-
-    const user = {
-        firstName: firstName.value,
-        lastName: lastName.value,
+    let password = document.getElementById("password")//.value;
+    // alert(email+" "+password);
+    const userLoginObj = {
         email: email.value,
         password: password.value
     }
-    try {
-        const response = await fetch("api/users", {
+    try{
+        const response = await fetch("api/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(userLoginObj)
         });
 
-
-        if (response.ok) { // 200
+        if (response.ok) {
             const data = await response.json();
-            // console.log(data);
-            if (data.status) {
+            console.log(data);
+            if(data.status){
                 Notiflix.Report.success(
                     'SausageShop',
                     data.message,
-                    'Okay',
+                    'Okay', // button title
                     () => {
-                        window.location = "sign-in.html";
-                    }
+                        window.location = "index.html"
+                    },
                 );
-            } else {
+
+            }else{
                 Notiflix.Notify.failure(data.message,{
                     position:'center-top'
                 });
             }
         } else {
-            Notiflix.Notify.failure('Something went wrong. Please check your credentials',{
+            Notiflix.Notify.failure("Login failed! Please try again",{
                 position:'center-top'
             });
         }

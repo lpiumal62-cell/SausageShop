@@ -37,7 +37,7 @@ async function verifyType() {
                     data.message,
                     'Okay',
                     () => {
-                        window.location = "signin.html";
+                        window.location = "sign-in.html";
                     }
                 );
             } else {
