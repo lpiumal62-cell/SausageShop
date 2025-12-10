@@ -1005,3 +1005,21 @@ button, a, input, textarea, select {
     }
 }
 
+.primary-red { background-color: #D62828; }
+.primary-red:hover { background-color: #B71C1C; }
+.text-primary-red { color: #D62828; }
+.border-primary-red { border-color: #D62828; }
+
+/* Card & glass */
+.glass {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(12px);
+}
+
+/* Password strength */
+.strength-bar.active { transition: all .3s ease; }
+.strength-0.active { background: #ef4444; }
+.strength-1.active { background: #f97316; }
+.strength-2.active { background: #eab308; }
+.strength-3.active { background: #22c55e; }
+

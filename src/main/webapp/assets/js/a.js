@@ -1,158 +1,146 @@
-(function() {
-    'use strict';
-
-    // Cache DOM elements
+(function () {
     const elements = {
-        tabs: {
-            buttons: document.querySelectorAll('.account-tab'),
-            panels: document.querySelectorAll('.account-content'),
-        },
-        mobile: {
-            menuBtn: document.getElementById('accountMobileMenuBtn'),
-            sidebar: document.getElementById('mobileSidebar'),
-            overlay: document.getElementById('mobileSidebarOverlay'),
-            closeBtn: document.getElementById('closeMobileSidebar'),
-        },
-        dashboard: {
-            profileView: document.getElementById('profileViewMode'),
-            profileEdit: document.getElementById('profileEditMode'),
-            toggleEdit: document.getElementById('toggleProfileEdit'),
-            cancelEdit: document.getElementById('cancelProfileEdit'),
-        },
-        cookie: {
-            toggle: document.getElementById('toggleCookieSection'),
-            section: document.getElementById('cookieManagementSection'),
-        },
-        orders: {
-            modal: document.getElementById('orderDetailsModal'),
-            modalClose: document.getElementById('closeOrderModal'),
-        },
+        tabs: document.querySelectorAll('.account-tab'),
+        contents: document.querySelectorAll('.account-content')
     };
 
-    // Initialize when DOM is ready
-    function init() {
-        if (!document.getElementById('dashboardTab')) return;
-
-        attachEventListeners();
-        switchTab('dashboard');
+    function switchTab(id) {
+        elements.contents.forEach(c => c.classList.toggle('hidden', c.id !== `${id}Tab`));
+        elements.tabs.forEach(b => {
+            const active = b.dataset.tab === id;
+            b.classList.toggle('primary-red', active);
+            b.classList.toggle('text-white', active);
+            b.classList.toggle('hover:bg-gray-100', !active);
+        });
     }
 
-    // Attach all event listeners
-    function attachEventListeners() {
-        // Tab navigation
-        elements.tabs.buttons.forEach(button => {
-            button.addEventListener('click', () => switchTab(button.dataset.tab));
+    elements.tabs.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+    window.switchTab = switchTab;
+    switchTab('dashboard');
+
+    // Password features
+    document.querySelectorAll('.toggle-password-visibility').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = document.getElementById(btn.dataset.target);
+            const icon = btn.querySelector('i');
+            if (!target || !icon) return;
+            if (target.type === 'password') {
+                target.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                target.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+    });
+
+    const strengthText = document.querySelector('.password-strength-text');
+    const strengthBars = document.querySelectorAll('.strength-bar');
+    const reqItems = document.querySelectorAll('.requirement-item');
+    const matchIndicator = document.querySelector('.password-match-indicator');
+    const mismatchIndicator = document.querySelector('.password-mismatch-indicator');
+
+    function updateStrength(password) {
+        let score = 0;
+        if (password.length >= 8) score++;
+        if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
+        if (/\d/.test(password)) score++;
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score++;
+
+        strengthBars.forEach((bar, idx) => {
+            bar.classList.toggle('active', idx < score);
         });
 
-        // Mobile menu
-        elements.mobile.menuBtn?.addEventListener('click', openMobileMenu);
-        elements.mobile.overlay?.addEventListener('click', closeMobileMenu);
-        elements.mobile.closeBtn?.addEventListener('click', closeMobileMenu);
+        const labels = ['Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+        const colors = ['#ef4444', '#ef4444', '#f97316', '#eab308', '#22c55e'];
+        if (strengthText) {
+            strengthText.textContent = labels[score] || '';
+            strengthText.style.color = colors[score] || '';
+        }
+    }
 
-        // Dashboard profile edit toggle
-        elements.dashboard.toggleEdit?.addEventListener('click', () => toggleProfileEdit(true));
-        elements.dashboard.cancelEdit?.addEventListener('click', () => toggleProfileEdit(false));
-
-        // Cookie section toggle
-        elements.cookie.toggle?.addEventListener('click', toggleCookieSection);
-
-        // Order modal
-        elements.orders.modalClose?.addEventListener('click', closeOrderModal);
-        elements.orders.modal?.addEventListener('click', (e) => {
-            if (e.target === elements.orders.modal) closeOrderModal();
+    function updateRequirements(password) {
+        const checks = {
+            length: password.length >= 8,
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            number: /\d/.test(password),
+            special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+        };
+        reqItems.forEach(item => {
+            const key = item.dataset.requirement;
+            const icon = item.querySelector('i');
+            if (checks[key]) {
+                item.classList.add('text-green-600');
+                item.classList.remove('text-gray-600');
+                if (icon) icon.className = 'fas fa-check-circle text-green-500 text-[12px]';
+            } else {
+                item.classList.remove('text-green-600');
+                item.classList.add('text-gray-600');
+                if (icon) icon.className = 'fas fa-circle text-gray-300 text-[6px]';
+            }
         });
+    }
 
-        // Form submissions - just prevent default to show design
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                // Just show design, no actual submission
-            });
+    function checkMatch() {
+        const a = document.getElementById('newPassword')?.value || '';
+        const b = document.getElementById('confirmNewPassword')?.value || '';
+        if (!matchIndicator || !mismatchIndicator) return;
+        if (!b.length) {
+            matchIndicator.classList.add('hidden');
+            mismatchIndicator.classList.add('hidden');
+            return;
+        }
+        if (a === b) {
+            matchIndicator.classList.remove('hidden');
+            mismatchIndicator.classList.add('hidden');
+        } else {
+            matchIndicator.classList.add('hidden');
+            mismatchIndicator.classList.remove('hidden');
+        }
+    }
+
+    const newPass = document.getElementById('newPassword');
+    const confirmPass = document.getElementById('confirmNewPassword');
+    if (newPass) {
+        newPass.addEventListener('input', e => {
+            const val = e.target.value;
+            updateStrength(val);
+            updateRequirements(val);
+            checkMatch();
         });
+    }
+    if (confirmPass) {
+        confirmPass.addEventListener('input', checkMatch);
+    }
 
-        // Inline editable fields
-        document.querySelectorAll('.editable-field').forEach(container => {
-            const display = container.querySelector('.field-display');
-            const input = container.querySelector('.field-input');
-
-            display?.addEventListener('click', () => {
-                display.classList.add('hidden');
-                input?.classList.remove('hidden');
-                input?.focus();
-            });
-
-            input?.addEventListener('blur', () => {
-                if (input.value.trim()) {
-                    display.textContent = input.value;
-                }
-                display.classList.remove('hidden');
-                input.classList.add('hidden');
-            });
+    const passwordForm = document.getElementById('passwordChangeForm');
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const current = document.getElementById('currentPassword').value;
+            const np = newPass?.value || '';
+            const cp = confirmPass?.value || '';
+            if (!current || !np || !cp || np !== cp) {
+                alert('Please complete the form correctly.');
+                return;
+            }
+            const btn = document.getElementById('passwordChangeSubmitBtn');
+            const text = btn?.querySelector('.submit-btn-text');
+            const loader = btn?.querySelector('.submit-btn-loader');
+            btn.disabled = true;
+            text?.classList.add('hidden');
+            loader?.classList.remove('hidden');
+            setTimeout(() => {
+                btn.disabled = false;
+                text?.classList.remove('hidden');
+                loader?.classList.add('hidden');
+                alert('Password updated (demo).');
+                passwordForm.reset();
+                updateStrength('');
+                updateRequirements('');
+                checkMatch();
+            }, 1000);
         });
-
-        // Expose switchTab globally for inline handlers
-        window.switchTab = switchTab;
-    }
-
-    // Tab switching
-    function switchTab(tabId) {
-        // Hide all panels
-        elements.tabs.panels.forEach(panel => {
-            panel.classList.toggle('hidden', panel.id !== `${tabId}Tab`);
-        });
-
-        // Update button states
-        elements.tabs.buttons.forEach(button => {
-            const isActive = button.dataset.tab === tabId;
-            button.classList.toggle('primary-red', isActive);
-            button.classList.toggle('text-white', isActive);
-            button.classList.toggle('hover:bg-gray-100', !isActive);
-            button.classList.toggle('text-gray-700', !isActive);
-        });
-
-        closeMobileMenu();
-    }
-
-    // Mobile menu controls
-    function openMobileMenu() {
-        if (!elements.mobile.sidebar) return;
-        elements.mobile.sidebar.classList.remove('hidden');
-        setTimeout(() => {
-            elements.mobile.sidebar.classList.remove('-translate-x-full');
-        }, 10);
-        elements.mobile.overlay?.classList.remove('hidden');
-    }
-
-    function closeMobileMenu() {
-        if (!elements.mobile.sidebar) return;
-        elements.mobile.sidebar.classList.add('-translate-x-full');
-        setTimeout(() => {
-            elements.mobile.sidebar.classList.add('hidden');
-        }, 200);
-        elements.mobile.overlay?.classList.add('hidden');
-    }
-
-    // Profile edit toggle
-    function toggleProfileEdit(editMode) {
-        if (!elements.dashboard.profileView || !elements.dashboard.profileEdit) return;
-        elements.dashboard.profileView.classList.toggle('hidden', editMode);
-        elements.dashboard.profileEdit.classList.toggle('hidden', !editMode);
-    }
-
-    // Cookie section toggle
-    function toggleCookieSection() {
-        elements.cookie.section?.classList.toggle('hidden');
-    }
-
-    // Order modal
-    function closeOrderModal() {
-        elements.orders.modal?.classList.add('hidden');
-    }
-
-    // Initialize on DOM ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
     }
 })();

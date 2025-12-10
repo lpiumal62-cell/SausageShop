@@ -13,23 +13,27 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-2">
-                <a href="index.html" class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
-                    data-page="index">
+                <a href="index.html"
+                   class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
+                   data-page="index">
                     <span>Home</span>
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                 </a>
-                <a href="shop.html" class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
-                    data-page="shop">
+                <a href="shop.html"
+                   class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
+                   data-page="shop">
                     <span>Shop</span>
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                 </a>
-                <a href="about.html" class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
-                    data-page="about">
+                <a href="about.html"
+                   class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
+                   data-page="about">
                     <span>About</span>
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                 </a>
-                <a href="contact.html" class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
-                    data-page="contact">
+                <a href="contact.html"
+                   class="nav-link px-4 py-2 text-gray-700 hover:text-orange-500 font-medium rounded-lg hover:bg-orange-50 transition-all relative group"
+                   data-page="contact">
                     <span>Contact</span>
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
                 </a>
@@ -40,15 +44,18 @@
                 <!-- <button id="themeToggle" class="p-2.5 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all">
                     <i class="fas fa-moon text-xl"></i>
                 </button> -->
-                <a href="wishlist.html" class="relative p-2.5 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all group">
+                <a href="wishlist.html"
+                   class="relative p-2.5 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all group">
                     <i class="fas fa-heart text-xl group-hover:scale-110 transition-transform"></i>
                     <span id="wishlistCount"
-                        class="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-lg badge-pulse">0</span>
+                          class="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-lg badge-pulse">0</span>
                 </a>
-                <a href="cart.html" class="relative p-2.5 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all group" id="cartBtn">
+                <a href="cart.html"
+                   class="relative p-2.5 text-gray-700 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all group"
+                   id="cartBtn">
                     <i class="fas fa-shopping-cart text-xl group-hover:scale-110 transition-transform"></i>
                     <span id="cartCount"
-                        class="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-lg badge-pulse">0</span>
+                          class="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-lg badge-pulse">0</span>
                 </a>
 
                 <!-- User Menu Dropdown (Always Visible) -->
@@ -60,42 +67,46 @@
 
                     <!-- Dropdown Menu -->
                     <div id="userMenuDropdown"
-                        class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border z-50">
+                         class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border z-50">
                         <!-- When Not Logged In -->
                         <div id="guestMenu" class="py-2">
-                            <a href="account.html">
-                                <button id="signUpBtn" 
-                                    class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                            <a href="profile.html">
+                                <button id="signUpBtn"
+                                        class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
                                     <i class="fas fa-user-plus mr-3 text-orange-500"></i>
                                     <span>My Account</span>
-                            </button></a>
+                                </button>
+                            </a>
                             <a href="sign-in.html">
-                            <button id="signInBtn"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
-                                <i class="fas fa-sign-in-alt mr-3 text-orange-500"></i>
-                                <span>Sign In</span></a>
-                            </button>
-                            <a href="sign-up.html">
-                            <button href="signup.html"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
-                                <i class="fas fa-user-plus mr-3 text-orange-500"></i>
-                                <span>Sign Up</span></a>
-                            </button>
+                                <button id="signInBtn"
+                                        class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                                    <i class="fas fa-sign-in-alt mr-3 text-orange-500"></i>
+                                    <span>Sign In</span>
 
+                                </button>
+                            </a>
+                            <a href="sign-up.html">
+                                <button href="signup.html"
+                                        class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                                    <i class="fas fa-user-plus mr-3 text-orange-500"></i>
+                                    <span>Sign Up</span>
+
+                            </button>
+                            </a>
                             <div class="border-t my-2"></div>
                             <a href="cart.html"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
                                 <i class="fas fa-shopping-cart mr-3 text-orange-500"></i>
                                 <span>Cart</span>
                                 <span id="cartCountMenu"
-                                    class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
+                                      class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
                             </a>
                             <a href="wishlist.html"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
                                 <i class="fas fa-heart mr-3 text-orange-500"></i>
                                 <span>Wishlist</span>
                                 <span id="wishlistCountMenu"
-                                    class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
+                                      class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
                             </a>
                         </div>
 
@@ -106,27 +117,27 @@
                                 <p class="text-xs text-gray-500" id="userEmailMenu">user@email.com</p>
                             </div>
                             <a href="account.html"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
                                 <i class="fas fa-user mr-3 text-orange-500"></i>
                                 <span>My Account</span>
                             </a>
                             <a href="cart.html"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
                                 <i class="fas fa-shopping-cart mr-3 text-orange-500"></i>
                                 <span>Cart</span>
                                 <span id="cartCountMenuLogged"
-                                    class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
+                                      class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
                             </a>
                             <a href="wishlist.html"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
+                               class="block px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center">
                                 <i class="fas fa-heart mr-3 text-orange-500"></i>
                                 <span>Wishlist</span>
                                 <span id="wishlistCountMenuLogged"
-                                    class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
+                                      class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
                             </a>
                             <div class="border-t my-2"></div>
                             <button id="logoutBtn"
-                                class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center">
+                                    class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center">
                                 <i class="fas fa-sign-out-alt mr-3"></i>
                                 <span>Logout</span>
                             </button>
@@ -150,24 +161,24 @@
             <a href="contact.html" class="block text-gray-700 hover:text-orange-500 font-medium py-2">Contact</a>
             <div class="border-t pt-4 space-y-2">
                 <a href="cart.html"
-                    class="block text-gray-700 hover:text-orange-500 font-medium py-2 flex items-center justify-between">
+                   class="block text-gray-700 hover:text-orange-500 font-medium py-2 flex items-center justify-between">
                     <span><i class="fas fa-shopping-cart mr-2"></i>Cart</span>
                     <span id="cartCountMobile" class="bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
                 </a>
                 <a href="wishlist.html"
-                    class="block text-gray-700 hover:text-orange-500 font-medium py-2 flex items-center justify-between">
+                   class="block text-gray-700 hover:text-orange-500 font-medium py-2 flex items-center justify-between">
                     <span><i class="fas fa-heart mr-2"></i>Wishlist</span>
                     <span id="wishlistCountMobile"
-                        class="bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
+                          class="bg-orange-500 text-white text-xs rounded-full px-2 py-1">0</span>
                 </a>
             </div>
             <div id="mobileAuthButtons" class="pt-4 border-t space-y-2">
                 <button id="mobileSignInBtn"
-                    class="w-full text-left px-4 py-2 text-gray-700 hover:text-orange-500 font-medium">
+                        class="w-full text-left px-4 py-2 text-gray-700 hover:text-orange-500 font-medium">
                     <i class="fas fa-sign-in-alt mr-2"></i>Sign In
                 </button>
                 <button id="mobileSignUpBtn"
-                    class="w-full text-left px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 font-medium">
+                        class="w-full text-left px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 font-medium">
                     <i class="fas fa-user-plus mr-2"></i>Sign Up
                 </button>
             </div>
