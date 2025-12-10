@@ -14,9 +14,9 @@ public class Test {
 
 
 
-//      //  Hibernate_Check
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        System.out.println("Connected to DB successfully!");
-//        session.close();
+      //  Hibernate_Check
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("Connected to DB successfully!");
+        session.close();
     }
 }

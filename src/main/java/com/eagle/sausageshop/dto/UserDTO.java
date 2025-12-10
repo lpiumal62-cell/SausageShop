@@ -17,7 +17,15 @@ public class UserDTO {
     private String sinceAt;
     private String newPassword;
     private String confirmPassword;
+    private boolean isPrimary;
 
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
+    }
 
     public int getCityId() {
         return cityId;
