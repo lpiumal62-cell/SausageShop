@@ -10,35 +10,18 @@ import java.util.List;
 @Entity
 @Table(name = "city")
 public class City implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    
-    @NotBlank
-    @Size(max = 150)
-    @Column(name = "name", nullable = false)
+    private int id;
+    @Column(length = 50, nullable = false)
     private String name;
-    
-    @OneToMany(mappedBy = "city")
-    private List<Address> addresses;
 
 
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
