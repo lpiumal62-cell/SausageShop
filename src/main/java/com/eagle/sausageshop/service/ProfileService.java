@@ -10,14 +10,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.core.Context;
 import org.hibernate.Session;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 
 public class ProfileService {
 
-    public String loadingService(@Context HttpServletRequest request){
+    public String loadingService(@Context HttpServletRequest request) {
         JsonObject responseObject = new JsonObject();
         boolean status = false;
         String message = "";
@@ -29,36 +27,32 @@ public class ProfileService {
         userDTO.setId(user.getId());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
-//        userDTO.setPassword(user.getPassword());
-
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPassword(user.getPassword());
 
         Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
         List<Address> addressList = hibernateSession.createQuery("FROM Address a WHERE a.user=:user", Address.class)
                 .setParameter("user", user).getResultList();
 
 
-//
-//        Address primaryAddress = null;
-//        for (Address address : addressList) {
-//            if (address.isPrimary()) {
-//                primaryAddress = address;
-//                break;
-//            }
-//        }
-//        if (primaryAddress != null) {
-//            userDTO.setLineOne(primaryAddress.getLineOne());
-//            userDTO.setLineTwo(primaryAddress.getLineTwo());
-//            userDTO.setPostalCode(primaryAddress.getPostalCode());
-//            userDTO.setMobile(primaryAddress.getMobile());
-//            userDTO.setPrimary(primaryAddress.isPrimary());
-//            userDTO.setCityId(primaryAddress.getCity().getId());
-//            userDTO.setCityName(primaryAddress.getCity().getName());
-//        }
+        Address primaryAddress = null;
+        for (Address address : addressList) {
+            if (address.isPrimary()) {
+                primaryAddress = address;
+                break;
+            }
+        }
+        if (primaryAddress != null) {
+//            System.out.println(primaryAddress.getLineOne());
+            userDTO.setLineOne(primaryAddress.getLineOne());
+            userDTO.setLineTwo(primaryAddress.getLineTwo());
+            userDTO.setPostalCode(primaryAddress.getPostalCode());
+            userDTO.setPrimary(primaryAddress.isPrimary());
+            userDTO.setMobile(primaryAddress.getMobile());
+            userDTO.setCityId(primaryAddress.getCity().getId());
+            userDTO.setCityName(primaryAddress.getCity().getName());
 
-        LocalDateTime createdAt = user.getCreatedAt();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMMM");
-        String sinceAt = createdAt.format(formatter);
-        userDTO.setSinceAt(sinceAt);
+        }
 
         responseObject.add("user", AppUtil.GSON.toJsonTree(userDTO));
 

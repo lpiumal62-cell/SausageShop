@@ -5,7 +5,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -30,6 +33,9 @@ public class User extends BaseEntity {
     @Size(max = 200)
     @Column(name = "password", nullable = false)
     private String password;
+
+
+
     @Size(max = 45)
     @Column(name = "verification_code")
     private String verificationCode;
@@ -38,17 +44,17 @@ public class User extends BaseEntity {
     @JoinColumn(name = "status_id")
     private Status status;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses;
+    @OneToMany(mappedBy = "user")
+    private Set<Address> addresses =new HashSet<>();
 
     // Other relationships omitted for brevity
 
 
-    public List<Address> getAddresses() {
+    public Set<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Address> addresses) {
+    public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
 

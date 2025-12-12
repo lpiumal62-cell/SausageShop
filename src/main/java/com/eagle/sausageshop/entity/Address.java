@@ -24,10 +24,7 @@ public class Address implements Serializable {
     @Size(max = 10)
     @Column(name = "postal_code")
     private String postalCode;
-    
-    @Size(max = 20)
-    @Column(name = "mobile")
-    private String mobile;
+
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
@@ -40,6 +37,17 @@ public class Address implements Serializable {
     @Column(name = "is_primary", nullable = false)
     private boolean isPrimary=false;
 
+    @Size(max = 20)
+    @Column(name = "mobile")
+    private String mobile;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
     public boolean isPrimary() {
         return isPrimary;
@@ -83,14 +91,6 @@ public class Address implements Serializable {
 
     public void setLineTwo(String lineTwo) {
         this.lineTwo = lineTwo;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
     }
 
     public String getPostalCode() {

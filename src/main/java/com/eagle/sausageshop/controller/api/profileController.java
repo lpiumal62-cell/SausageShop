@@ -10,8 +10,16 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/user-Profiles")
+@Path("/profiles")
 public class profileController {
+
+    @IsUser
+    @GET
+    @Path("/user-loading")
+    public Response loadProfile(@Context HttpServletRequest request) {
+        String responseJson = new ProfileService().loadingService(request);
+        return Response.ok().entity(responseJson).build();
+    }
 
     @Path("/cities")
     @GET
@@ -20,11 +28,5 @@ public class profileController {
         String loadAllCities = new CityService().loadAllCities();
         return Response.ok().entity(loadAllCities).build();
     }
-    @IsUser
-    @GET
-    @Path("/profileLoading")
-    public Response loadUserProfile(@Context HttpServletRequest request) {
-        String responseJson = new ProfileService().loadingService(request);
-        return Response.ok().entity(responseJson).build();
-    }
+
 }

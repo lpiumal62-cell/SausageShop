@@ -28,7 +28,7 @@ public class AuthFilter implements ContainerRequestFilter {
         if (httpSession == null || httpSession.getAttribute("user") == null) {
             containerRequestContext
                     .abortWith(Response.status(Response.Status.TEMPORARY_REDIRECT)
-                            .location(URI.create(request.getContextPath() + "/signin.html")).build());
+                    .location(URI.create(request.getContextPath() + "/sign-in.html")).build());
         }
 
     }

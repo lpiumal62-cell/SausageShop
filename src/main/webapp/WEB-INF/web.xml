@@ -37,17 +37,16 @@
         <filter-name>AuthAccessFilter</filter-name>
         <url-pattern>/sign-in.html</url-pattern>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>AuthAccessFilter</filter-name>
-        <url-pattern>/verify-account.html</url-pattern>
-    </filter-mapping>
-
     <filter>
         <filter-name>AccessControlFilter</filter-name>
         <filter-class>com.eagle.sausageshop.middleware.AccessControlFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AccessControlFilter</filter-name>
-        <url-pattern>/my-account.html</url-pattern>
+        <url-pattern>/profile.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AccessControlFilter</filter-name>
+        <url-pattern>/verify-account.html</url-pattern>
     </filter-mapping>
 </web-app>
