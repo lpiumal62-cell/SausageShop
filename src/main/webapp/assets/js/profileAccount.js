@@ -13,8 +13,61 @@ window.addEventListener("load", async () => {
 });
 
 
+async function profileSave() {
+
+    Notiflix.Loading.pulse("Wait...", {
+        clickToClose: false,
+        svgColor: '#0284c7'
+    });
+    let firstName = document.getElementById("firstName");
+    let lastName = document.getElementById("lastName");
+    let mobile = document.getElementById("mobile");
 
 
+    const userObj={
+        firstName: firstName.value,
+        lastName: lastName.value,
+        mobile: mobile.value,
+    }
+
+    try {
+        const response = await fetch("api/profiles/update-profile", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userObj)
+        });
+
+        if(response.ok){
+            const data =await response.json();
+
+            if (data.status) {
+                Notiflix.Report.success(
+                    'SausageShop',
+                    data.message,
+                    'Okay'
+                );
+                await loadUserData();
+            } else {
+                Notiflix.Notify.failure(data.message, {
+                    position: 'center-top'
+                });
+            }
+        } else {
+            Notiflix.Notify.failure("Profile update failed!", {
+                position: 'center-top'
+            });
+        }
+
+    } catch (e) {
+        Notiflix.Notify.failure(e.message, {
+            position: 'center-top'
+        });
+    } finally {
+        Notiflix.Loading.remove(1000);
+    }
+}
 
 async function loadUserData() {
     try {
@@ -54,6 +107,7 @@ async function loadUserData() {
         });
     }
 }
+
 async function getCities() {
     try {
         const response = await fetch("api/profiles/cities");
