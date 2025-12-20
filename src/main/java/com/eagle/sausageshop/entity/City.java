@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "city")
 public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

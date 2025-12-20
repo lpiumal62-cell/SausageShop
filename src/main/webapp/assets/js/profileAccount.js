@@ -13,6 +13,60 @@ window.addEventListener("load", async () => {
 });
 
 
+async function profileAddressSave() {
+    // alert("ok")
+    Notiflix.Loading.pulse("Wait...", {
+        clickToClose: false,
+        svgColor: '#0284c7'
+    });
+    let lineOne = document.getElementById("lineOne");
+    let lineTwo = document.getElementById("lineTwo");
+    let postalCode = document.getElementById("postalCode");
+    let citySelect = document.getElementById("citySelect");
+
+    const userObj = {
+        lineOne: lineOne.value,
+        lineTwo: lineTwo.value,
+        postalCode: postalCode.value,
+        cityId: citySelect.value,
+    }
+    try {
+        const response = await fetch("api/profiles/update-address", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userObj)
+        });
+        if (response.ok) {
+            const data = await response.json();
+            // console.log(data)
+            if (data.status) {
+                Notiflix.Report.success(
+                    'SausageShop',
+                    data.message,
+                    'Okay'
+                );
+                await loadUserData();
+            } else {
+                Notiflix.Notify.failure(data.message, {
+                    position: 'center-top'
+                });
+            }
+        } else {
+            Notiflix.Notify.failure("Profile Address update failed!", {
+                position: 'center-top'
+            });
+        }
+    } catch (e) {
+        Notiflix.Notify.failure(e.message, {
+            position: 'center-top'
+        });
+    } finally {
+        Notiflix.Loading.remove(1000);
+    }
+}
+
 async function profileSave() {
 
     Notiflix.Loading.pulse("Wait...", {
@@ -24,7 +78,7 @@ async function profileSave() {
     let mobile = document.getElementById("mobile");
 
 
-    const userObj={
+    const userObj = {
         firstName: firstName.value,
         lastName: lastName.value,
         mobile: mobile.value,
@@ -39,8 +93,8 @@ async function profileSave() {
             body: JSON.stringify(userObj)
         });
 
-        if(response.ok){
-            const data =await response.json();
+        if (response.ok) {
+            const data = await response.json();
 
             if (data.status) {
                 Notiflix.Report.success(

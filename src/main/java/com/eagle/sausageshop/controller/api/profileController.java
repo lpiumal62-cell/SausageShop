@@ -17,6 +17,17 @@ public class profileController {
 
 
     @IsUser
+    @Path("/update-address")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateUserAddress(String jsonData, @Context HttpServletRequest request) {
+        UserDTO userDTO = AppUtil.GSON.fromJson(jsonData, UserDTO.class);
+        String responseJson = new ProfileService().updateProfileAddress(userDTO, request);
+        return Response.ok().entity(responseJson).build();
+    }
+
+    @IsUser
     @Path("/update-profile")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

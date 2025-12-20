@@ -22,7 +22,6 @@ async function signIn() {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             if(data.status){
                 Notiflix.Report.success(
                     'SausageShop',

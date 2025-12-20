@@ -2,6 +2,7 @@ package com.eagle.sausageshop.service;
 
 import com.eagle.sausageshop.dto.UserDTO;
 import com.eagle.sausageshop.entity.Address;
+import com.eagle.sausageshop.entity.City;
 import com.eagle.sausageshop.entity.User;
 import com.eagle.sausageshop.util.AppUtil;
 import com.eagle.sausageshop.util.HibernateUtil;
@@ -15,11 +16,89 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.Set;
 
 
 public class ProfileService {
 
+    public String updateProfileAddress(UserDTO userDTO, @Context HttpServletRequest request) {
+        JsonObject responseObject = new JsonObject();
+        boolean status = false;
+        String message = "";
+
+        if (userDTO.getLineOne() == null) {
+            message = "Address line one is required!";
+        } else if (userDTO.getLineOne().isBlank()) {
+            message = "Address line one can not be empty!";
+        } else if (userDTO.getPostalCode() != null &&
+                !userDTO.getPostalCode().isBlank() &&
+                !userDTO.getPostalCode().matches(Validator.POSTAL_CODE_VALIDATION)) {
+            message = "Enter a valid postal code!";
+        } else if (userDTO.getCityId() == 0) {
+            message = "Please select a city!";
+        } else {
+            HttpSession httpSession = request.getSession(false);
+            if (httpSession == null) {
+                message = "Please login first";
+            } else if (httpSession.getAttribute("user") == null) {
+                message = "Please login first";
+            } else {
+                User sessionUser = (User) httpSession.getAttribute("user");
+                Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
+                User dbUser = hibernateSession.createNamedQuery("User.getByEmail", User.class)
+                        .setParameter("email", sessionUser.getEmail())
+                        .getSingleResult();
+
+                List<Address> addressList = hibernateSession.createQuery("FROM Address a WHERE a.user=:user", Address.class)
+                        .setParameter("user", dbUser)
+                        .getResultList();
+
+
+                Address currentAddress = null;
+                for (Address address : addressList) {
+                    if (address.getLineOne().equals(userDTO.getLineOne()) &&
+                            address.getLineTwo().equals(userDTO.getLineTwo() != null ? userDTO.getLineTwo() : "") &&
+                            address.getPostalCode().equals(userDTO.getPostalCode() != null ? userDTO.getPostalCode() : "") &&
+                            address.getCity().getId() == userDTO.getCityId()) {
+                        currentAddress = address;
+                        break;
+                    }
+                }
+
+                if (currentAddress == null) {
+                    currentAddress = new Address();
+                }
+
+                currentAddress.setLineOne(userDTO.getLineOne());
+                currentAddress.setLineTwo(userDTO.getLineTwo());
+                currentAddress.setPostalCode(userDTO.getPostalCode());
+                currentAddress.setMobile(userDTO.getMobile());
+                currentAddress.setUser(dbUser);
+
+                City city = hibernateSession.find(City.class, userDTO.getCityId());
+
+                currentAddress.setCity(city);
+
+                Transaction transaction = hibernateSession.beginTransaction();
+                try {
+                    hibernateSession.merge(dbUser);
+                    hibernateSession.merge(currentAddress);
+                    transaction.commit();
+                    httpSession.setAttribute("user", dbUser); /// update session user
+                    status = true;
+                    message = "Profile Address update successful...";
+                } catch (HibernateException e) {
+                    transaction.rollback();
+                    message = "Profile details update failed!";
+                }
+
+                hibernateSession.close();
+            }
+        }
+
+        responseObject.addProperty("status", status);
+        responseObject.addProperty("message", message);
+        return AppUtil.GSON.toJson(responseObject);
+    }
 
     public String updateProfile(UserDTO userDTO, @Context HttpServletRequest request) {
 

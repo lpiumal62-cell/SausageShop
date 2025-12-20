@@ -242,14 +242,15 @@
                     <input type="text" id="postalCode" placeholder="Postal code"
                            class="px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-red-500">
                     <div class="md:col-span-2 flex gap-3">
-                        <button type="submit"
-                                class="flex-1 primary-red text-white py-3 rounded-xl font-semibold hover:bg-red-700 transition">
-                            Save address
-                        </button>
                         <button type="button" id="clearAddressForm"
                                 class="px-4 py-3 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100">
                             Clear
                         </button>
+                        <button type="button"
+                                class="primary-red text-white px-5 py-3 rounded-xl font-semibold hover:bg-red-700" onclick="profileAddressSave();">
+                            Save changes
+                        </button>
+
                     </div>
                 </form>
                 <div id="noAddressesMessage" class="hidden text-center py-6 text-gray-500">No saved addresses</div>
