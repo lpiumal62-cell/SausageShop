@@ -15,6 +15,16 @@ import jakarta.ws.rs.core.Response;
 @Path("/profiles")
 public class profileController {
 
+    @IsUser
+    @Path("/update-profilePassword")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response profilePassword(String jsonData, @Context HttpServletRequest request) {
+        UserDTO userDTO = AppUtil.GSON.fromJson(jsonData, UserDTO.class);
+        String responseJson = new ProfileService().updateProfilePassword(userDTO, request);
+        return Response.ok().entity(responseJson).build();
+    }
 
     @IsUser
     @Path("/update-address")

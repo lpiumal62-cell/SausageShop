@@ -12,6 +12,60 @@ window.addEventListener("load", async () => {
     }
 });
 
+async function profilePasswordChange() {
+    Notiflix.Loading.pulse("Wait...", {
+        clickToClose: false,
+        svgColor: '#0284c7'
+    });
+    let currentPassword = document.getElementById("currentPassword")//.value;
+    let newPassword = document.getElementById("newPassword")//.value;
+    let conformPassword = document.getElementById("conformPassword")//.value;
+    // alert(currentPassword+newPassword+conformPassword)
+
+    const userObj = {
+        password: currentPassword.value,
+        newPassword: newPassword.value,
+        conformPassword: conformPassword.value,
+
+    }
+    try {
+        const response = await fetch("api/profiles/update-profilePassword", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userObj)
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            if (data.status) {
+                Notiflix.Report.success(
+                    'SausageShop',
+                    data.message,
+                    'Okay'
+                );
+                await loadUserData();
+            } else {
+                Notiflix.Notify.failure(data.message, {
+                    position: 'center-top'
+                });
+            }
+        } else {
+            Notiflix.Notify.failure("Profile Password update failed!", {
+                position: 'center-top'
+            });
+        }
+
+    } catch
+        (e) {
+        Notiflix.Notify.failure(e.message, {
+            position: 'center-top'
+        });
+    } finally {
+        Notiflix.Loading.remove(1000);
+    }
+}
 
 async function profileAddressSave() {
     // alert("ok")

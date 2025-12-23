@@ -1,21 +1,19 @@
 let params = new URLSearchParams(window.location.search);
 
-const verificationCodeInput = document.getElementById("verificationCode");
-
-// Set verification code from URL into input
-verificationCodeInput.value = params.get("verificationCode");
-
-const user = params.get("email");
+const verificationCode = document.getElementById("verificationCode");
+verificationCode.value = params.get("verificationCode");
+const userEmail = params.get("email");
 
 async function verifyType() {
+
     Notiflix.Loading.pulse("Wait...", {
         clickToClose: false,
         svgColor: '#0284c7'
     });
 
     const verifyObj = {
-        email: user,
-        verificationCode: verificationCodeInput.value
+        email: userEmail,
+        verificationCode: verificationCode.value
     };
 
     try {
@@ -28,27 +26,32 @@ async function verifyType() {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            console.log(data);
+            if (response.headers.get("content-type")?.includes("application/json")) {
+                const data = await response.json();
+                console.log(data)
+                if (data.status) {
+                    Notiflix.Report.success(
+                        'SausageShop',
+                        data.message,
+                        'Okay',
+                        () => window.location = "sign-in.html"
+                    );
+                } else {
+                    Notiflix.Notify.failure(data.message);
+                }
 
-            if (data.status) {
-                Notiflix.Report.success(
-                    'SausageShop',
-                    data.message,
-                    'Okay',
-                    () => {
-                        window.location = "sign-in.html";
-                    }
-                );
             } else {
-                Notiflix.Notify.failure(data.message);
+                const text = await response.text();
+                console.error(text);
+                Notiflix.Notify.failure("Invalid server response");
             }
+
         } else {
             Notiflix.Notify.failure("Verification process failed!");
         }
 
     } catch (e) {
-        Notiflix.Notify.failure(e.message || e);
+        Notiflix.Notify.failure(e.message || e.toString());
     } finally {
         Notiflix.Loading.remove(1000);
     }

@@ -247,7 +247,8 @@
                             Clear
                         </button>
                         <button type="button"
-                                class="primary-red text-white px-5 py-3 rounded-xl font-semibold hover:bg-red-700" onclick="profileAddressSave();">
+                                class="primary-red text-white px-5 py-3 rounded-xl font-semibold hover:bg-red-700"
+                                onclick="profileAddressSave();">
                             Save changes
                         </button>
 
@@ -276,7 +277,7 @@
                     </div>
                     <div>
                         <label class="text-sm text-gray-600">Email</label>
-                        <input type="email"  id="email" disabled
+                        <input type="email" id="email" disabled
                                class="w-full mt-1 px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-red-500">
                     </div>
                     <div>
@@ -292,7 +293,8 @@
                             Cancel
                         </button>
                         <button type="button"
-                                class="primary-red text-white px-5 py-3 rounded-xl font-semibold hover:bg-red-700"onclick="profileSave();">
+                                class="primary-red text-white px-5 py-3 rounded-xl font-semibold hover:bg-red-700"
+                                onclick="profileSave();">
                             Save changes
                         </button>
                     </div>
@@ -333,12 +335,12 @@
                     <div>
                         <label class="text-sm text-gray-600 font-semibold">Conform New password</label>
                         <div class="relative mt-1">
-                            <input type="password" id="conformNewPassword"
+                            <input type="password" id="conformPassword"
                                    class="w-full px-4 py-3 pr-12 rounded-xl border focus:outline-none focus:ring-2 focus:ring-red-500"
                                    placeholder="Conform New password">
                             <button type="button"
                                     class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 toggle-password-visibility"
-                                    data-target="conformNewPassword">
+                                    data-target="conformPassword">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -348,10 +350,9 @@
                                 class="px-4 py-3 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 flex-1">
                             Cancel
                         </button>
-                        <button type="submit" id="passwordChangeSubmitBtn"
-                                class="px-4 py-3 rounded-xl primary-red text-white font-semibold hover:bg-red-700 flex-1 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <button type="button"
+                                class="primary-red text-white px-5 py-3 rounded-xl font-semibold hover:bg-red-700" onclick="profilePasswordChange();">
                             <span class="submit-btn-text"><i class="fas fa-save mr-2"></i>Change password</span>
-                            <span class="submit-btn-loader hidden"><i class="fas fa-spinner fa-spin mr-2"></i>Updating...</span>
                         </button>
                     </div>
                 </form>

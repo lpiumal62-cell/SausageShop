@@ -16,9 +16,16 @@ public class UserDTO {
     private String mobile;
     private String sinceAt;
     private String newPassword;
-    private String confirmPassword;
+    private String conformPassword;
     private boolean isPrimary;
 
+    public String getConformPassword() {
+        return conformPassword;
+    }
+
+    public void setConformPassword(String conformPassword) {
+        this.conformPassword = conformPassword;
+    }
 
     public int getId() {
         return id;
@@ -130,14 +137,6 @@ public class UserDTO {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public boolean isPrimary() {

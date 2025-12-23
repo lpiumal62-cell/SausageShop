@@ -20,6 +20,69 @@ import java.util.List;
 
 public class ProfileService {
 
+
+    public String updateProfilePassword(UserDTO userDTO, @Context HttpServletRequest request) {
+        JsonObject responseObject = new JsonObject();
+        boolean status = false;
+        String message = "";
+
+        // 1️⃣ Basic validations
+        if (userDTO.getPassword() == null || userDTO.getPassword().isBlank()) {
+            message = "Current password is required!";
+        } else if (!userDTO.getPassword().matches(Validator.PASSWORD_VALIDATION)) {
+            message = "Invalid current password format!";
+        } else if (userDTO.getNewPassword() == null || userDTO.getNewPassword().isBlank()) {
+            message = "New password is required!";
+        } else if (!userDTO.getNewPassword().matches(Validator.PASSWORD_VALIDATION)) {
+            message = "Invalid new password format!";
+        } else if (userDTO.getConformPassword() == null || userDTO.getConformPassword().isBlank()) {
+            message = "Confirm password is required!";
+        } else if (!userDTO.getConformPassword().matches(Validator.PASSWORD_VALIDATION)) {
+            message = "Invalid confirm password format!";
+        } else if (!userDTO.getConformPassword().equals(userDTO.getNewPassword())) {
+            message = "New password and confirm password do not match!";
+        } else {
+            // 2️⃣ Session check
+            HttpSession httpSession = request.getSession(false);
+            if (httpSession == null || httpSession.getAttribute("user") == null) {
+                message = "Please login first";
+            } else {
+                Session hibernateSession = null;
+                Transaction transaction = null;
+                try {
+                    User sessionUser = (User) httpSession.getAttribute("user");
+                    hibernateSession = HibernateUtil.getSessionFactory().openSession();
+                    User dbUser = hibernateSession
+                            .createNamedQuery("User.getByEmail", User.class)
+                            .setParameter("email", sessionUser.getEmail())
+                            .getSingleResult();
+
+                        transaction = hibernateSession.beginTransaction();
+                        hibernateSession.merge(dbUser);
+                        transaction.commit();
+
+                        httpSession.setAttribute("user", dbUser);
+
+                        status = true;
+                        message = "Password updated successfully";
+
+
+                } catch (Exception e) {
+                    if (transaction != null) transaction.rollback();
+                    e.printStackTrace();
+                    message = "Password update failed!";
+                } finally {
+                    if (hibernateSession != null) hibernateSession.close();
+                }
+            }
+        }
+
+        responseObject.addProperty("status", status);
+        responseObject.addProperty("message", message);
+        return AppUtil.GSON.toJson(responseObject);
+    }
+
+
     public String updateProfileAddress(UserDTO userDTO, @Context HttpServletRequest request) {
         JsonObject responseObject = new JsonObject();
         boolean status = false;
