@@ -32,7 +32,7 @@ async function adminSignIn() {
                     data.message,
                     'Okay', // button title
                     () => {
-                        window.location = "admin.html"
+                        window.location = "admin-dashboard.html"
                     },
                 );
 

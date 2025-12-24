@@ -21,6 +21,7 @@ public class AdminService {
         JsonObject responseObject = new JsonObject();
         boolean status = false;
         String message = "";
+
         if (userDTO.getEmail() == null || userDTO.getEmail().isBlank()) {
             message = "Email is required!";
         } else if (!userDTO.getEmail().matches(Validator.EMAIL_VALIDATION)) {

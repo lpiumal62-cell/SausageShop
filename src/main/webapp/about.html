@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Sausage Delight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/counterup2@2.0.2/dist/index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- About Header -->
+    <section class="bg-orange-600 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-2">About Us</h1>
+            <p class="text-xl opacity-90">Our story, our passion, our commitment</p>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Our Story</h2>
+                <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                    Sausage Delight was founded with a simple mission: to bring the finest quality sausages to your table. 
+                    What started as a small family business has grown into a trusted name in premium sausage production.
+                </p>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    We combine traditional recipes passed down through generations with modern quality standards, 
+                    ensuring every bite delivers exceptional flavor and quality. Our commitment to using only the 
+                    finest ingredients and time-honored techniques sets us apart.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Vision -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Our Vision</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <i class="fas fa-bullseye text-4xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Quality First</h3>
+                        <p class="text-gray-700">We never compromise on quality. Every product is crafted with care and attention to detail.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <i class="fas fa-leaf text-4xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Natural Ingredients</h3>
+                        <p class="text-gray-700">We use only natural, premium ingredients with no artificial preservatives or additives.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <i class="fas fa-users text-4xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Customer Satisfaction</h3>
+                        <p class="text-gray-700">Your happiness is our priority. We're committed to exceeding your expectations.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <i class="fas fa-globe text-4xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Sustainable Practices</h3>
+                        <p class="text-gray-700">We care about the environment and practice sustainable sourcing and production methods.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Process -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Our Process</h2>
+            <div class="max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-orange-600">1</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Selection</h3>
+                        <p class="text-gray-600">We carefully select the finest cuts of meat from trusted suppliers.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-orange-600">2</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Preparation</h3>
+                        <p class="text-gray-600">Our expert butchers prepare the meat using traditional techniques.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-orange-600">3</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Seasoning</h3>
+                        <p class="text-gray-600">We blend premium spices and herbs to create unique flavors.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-orange-600">4</span>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Packaging</h3>
+                        <p class="text-gray-600">Fresh packaging ensures quality and flavor are preserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Counter -->
+    <section class="py-16 bg-orange-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-bold mb-2 counter" data-target="2500">0</div>
+                    <p class="text-xl">Happy Customers</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2 counter" data-target="10000">0</div>
+                    <p class="text-xl">Orders Delivered</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2 counter" data-target="8">0</div>
+                    <p class="text-xl">Years of Experience</p>
+                </div>
+                <div>
+                    <div class="text-5xl font-bold mb-2 counter" data-target="50">0</div>
+                    <p class="text-xl">Product Varieties</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Members -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">Our Team</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center">
+                    <div class="bg-gray-200 h-64 flex items-center justify-center">
+                        <i class="fas fa-user-circle text-8xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">John Smith</h3>
+                        <p class="text-orange-600 mb-2">Master Butcher</p>
+                        <p class="text-gray-600 text-sm">20+ years of experience in traditional sausage making</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center">
+                    <div class="bg-gray-200 h-64 flex items-center justify-center">
+                        <i class="fas fa-user-circle text-8xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Sarah Johnson</h3>
+                        <p class="text-orange-600 mb-2">Quality Manager</p>
+                        <p class="text-gray-600 text-sm">Ensuring every product meets our high standards</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center">
+                    <div class="bg-gray-200 h-64 flex items-center justify-center">
+                        <i class="fas fa-user-circle text-8xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Mike Davis</h3>
+                        <p class="text-orange-600 mb-2">Head Chef</p>
+                        <p class="text-gray-600 text-sm">Creating innovative flavors and recipes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/load-components.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
