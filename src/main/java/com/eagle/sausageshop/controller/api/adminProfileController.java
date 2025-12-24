@@ -1,19 +1,34 @@
 package com.eagle.sausageshop.controller.api;
 
+import com.eagle.sausageshop.annotation.IsUser;
 import com.eagle.sausageshop.dto.UserDTO;
 import com.eagle.sausageshop.service.AdminService;
 import com.eagle.sausageshop.util.AppUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.servlet.http.HttpSession;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/admin")
-public class adminController {
+public class adminProfileController {
+
+    @IsUser
+    @Path("/logout")
+    @GET
+    public Response logout(@Context HttpServletRequest request) {
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession != null && httpSession.getAttribute("user") != null) {
+            httpSession.invalidate();
+            return Response.status(Response.Status.OK).build();
+        } else {
+            System.out.println("else");
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+
     @Path("/admin-login")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
