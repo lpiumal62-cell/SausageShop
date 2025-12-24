@@ -23,6 +23,9 @@
 <!--    <welcome-file-list>-->
 <!--        <welcome-file>index.html</welcome-file>-->
 <!--    </welcome-file-list>-->
+
+
+<!--    USER-->
     <filter>
         <filter-name>AuthAccessFilter</filter-name>
         <filter-class>com.eagle.sausageshop.middleware.AuthAccessFilter</filter-class>
@@ -43,4 +46,28 @@
         <filter-name>AccessControlFilter</filter-name>
         <url-pattern>/profile.html</url-pattern>
     </filter-mapping>
+
+
+    <!-- Admin -->
+    <filter>
+        <filter-name>AdminAuthAccessFilter</filter-name>
+        <filter-class>com.eagle.sausageshop.middleware.admin.AuthAccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminAuthAccessFilter</filter-name>
+        <url-pattern>/admin-login.html</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AdminAccessControlFilter</filter-name>
+        <filter-class>com.eagle.sausageshop.middleware.admin.AccessControlFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminAccessControlFilter</filter-name>
+        <url-pattern>/admin.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminAccessControlFilter</filter-name>
+        <url-pattern>/admin-dashboard/*</url-pattern>
+    </filter-mapping>
+
 </web-app>
