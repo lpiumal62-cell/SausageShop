@@ -23,28 +23,9 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
     
-    @NotBlank
-    @Size(max = 120)
-    @Column(name = "slug", unique = true, nullable = false)
-    private String slug;
-    
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-    
-    @Size(max = 255)
-    @Column(name = "image")
-    private String image;
-    
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Integer getId() {
         return id;
@@ -52,14 +33,6 @@ public class Category implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getName() {
@@ -76,14 +49,6 @@ public class Category implements Serializable {
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
     }
 }
 

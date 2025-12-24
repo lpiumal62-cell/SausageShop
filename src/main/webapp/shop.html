@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Sausage Delight</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Shop Header -->
+    <section class="bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 text-white py-20 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">Our Products</h1>
+            <p class="text-2xl opacity-95">Discover our premium sausage collection</p>
+        </div>
+    </section>
+
+    <!-- Filters and Sorting -->
+    <section class="py-8 bg-white border-b shadow-sm sticky top-20 z-30 backdrop-blur-sm bg-white/95">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-3">
+                    <button class="filter-btn px-6 py-3 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active" data-category="all">
+                        <i class="fas fa-th mr-2"></i>All
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white text-gray-700 font-semibold transition-all transform hover:scale-105" data-category="chicken">
+                        <i class="fas fa-drumstick-bite mr-2"></i>Chicken
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white text-gray-700 font-semibold transition-all transform hover:scale-105" data-category="pork">
+                        <i class="fas fa-bacon mr-2"></i>Pork
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white text-gray-700 font-semibold transition-all transform hover:scale-105" data-category="beef">
+                        <i class="fas fa-hamburger mr-2"></i>Beef
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white text-gray-700 font-semibold transition-all transform hover:scale-105" data-category="mixed">
+                        <i class="fas fa-utensils mr-2"></i>Mixed
+                    </button>
+                </div>
+
+                <!-- Sorting -->
+                <div class="flex items-center gap-3">
+                    <label class="text-gray-700 font-semibold flex items-center">
+                        <i class="fas fa-sort mr-2 text-orange-500"></i>Sort by:
+                    </label>
+                    <select id="sortSelect" class="px-5 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-medium bg-white shadow-sm hover:shadow-md transition-all">
+                        <option value="default">Default</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popular">Popular</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center items-center space-x-3" id="pagination">
+                <!-- Pagination will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/load-components.js"></script>
+    <script src="assets/js/background-animations.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/shop.js"></script>
+</body>
+</html>
+

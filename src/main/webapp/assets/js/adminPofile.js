@@ -11,6 +11,8 @@ window.addEventListener("load", async () => {
     }
 });
 
+
+
 async function logOut(){
     // alert("ok");
     Notiflix.Loading.pulse("Wait...", {

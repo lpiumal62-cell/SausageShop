@@ -17,7 +17,6 @@
         <mapping class="com.eagle.sausageshop.entity.Cart"/>
         <mapping class="com.eagle.sausageshop.entity.Category"/>
         <mapping class="com.eagle.sausageshop.entity.City"/>
-        <mapping class="com.eagle.sausageshop.entity.Color"/>
         <mapping class="com.eagle.sausageshop.entity.ContactMessage"/>
         <mapping class="com.eagle.sausageshop.entity.Coupon"/>
         <mapping class="com.eagle.sausageshop.entity.DeliveryType"/>
@@ -27,7 +26,6 @@
         <mapping class="com.eagle.sausageshop.entity.OrderItem"/>
         <mapping class="com.eagle.sausageshop.entity.Product"/>
         <mapping class="com.eagle.sausageshop.entity.ProductReview"/>
-        <mapping class="com.eagle.sausageshop.entity.Quality"/>
         <mapping class="com.eagle.sausageshop.entity.RecentlyViewed"/>
         <mapping class="com.eagle.sausageshop.entity.Seller"/>
         <mapping class="com.eagle.sausageshop.entity.Setting"/>

@@ -1,166 +1,72 @@
 package com.eagle.sausageshop.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
-import java.io.Serializable;
 import java.util.List;
-
 
 @Entity
 @Table(name = "product")
-public class Product extends BaseEntity implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    
+public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    
-    @NotBlank
-    @Size(max = 200)
-    @Column(name = "title", nullable = false)
+    private int id;
+    @Column(name = "title", nullable = false, length = 200)
     private String title;
-    
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-    
-    @Column(name = "price")
-    private Double price;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+
+    @Column(name = "short_description", length = 500)
+    private String shortDescription;
+
+    @Column(name = "long_description", columnDefinition = "TEXT")
+    private String longDescription;
+
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "storage_id")
-    private Storage storage;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quality_id")
-    private Quality quality;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "color_id")
-    private Color color;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
-    private Seller seller;
-    
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Stock> stocks;
-    
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Wishlist> wishlistItems;
-    
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecentlyViewed> recentlyViewed;
-    
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductReview> productReviews;
 
-//    @Column(name = "images")
-//    @CollectionTable(name = "product_images",joinColumns = @JoinColumn(name = "product_id"))
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    private List<String> images;
 
-//
-//    public List<String> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(List<String> images) {
-//        this.images = images;
-//    }
+    @Column(name = "price", nullable = false)
+    private double price;
 
-    public Category getCategory() {
-        return category;
-    }
+    @Column(name = "sale_price")
+    private Double salePrice;
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    @Column(name = "stock_qty", nullable = false)
+    private int stockQuantity;
 
-    public Color getColor() {
-        return color;
-    }
+    @Column(name = "sku", unique = true, length = 100)
+    private String sku;
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+    @Column(name = "calories")
+    private Double calories;
 
-    public String getDescription() {
-        return description;
-    }
+    @Column(name = "protein")
+    private Double protein;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @Column(name = "fat")
+    private Double fat;
 
-    public Integer getId() {
+    @Column(name = "carbs")
+    private Double carbs;
+
+    @Column(name = "ingredients", columnDefinition = "TEXT")
+    private String ingredients;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "product_images",
+            joinColumns = @JoinColumn(name = "product_id")
+    )
+    @Column(name = "image")
+    private List<String> images;
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public List<ProductReview> getProductReviews() {
-        return productReviews;
-    }
-
-    public void setProductReviews(List<ProductReview> productReviews) {
-        this.productReviews = productReviews;
-    }
-
-    public Quality getQuality() {
-        return quality;
-    }
-
-    public void setQuality(Quality quality) {
-        this.quality = quality;
-    }
-
-    public List<RecentlyViewed> getRecentlyViewed() {
-        return recentlyViewed;
-    }
-
-    public void setRecentlyViewed(List<RecentlyViewed> recentlyViewed) {
-        this.recentlyViewed = recentlyViewed;
-    }
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
-    public List<Stock> getStocks() {
-        return stocks;
-    }
-
-    public void setStocks(List<Stock> stocks) {
-        this.stocks = stocks;
-    }
-
-    public Storage getStorage() {
-        return storage;
-    }
-
-    public void setStorage(Storage storage) {
-        this.storage = storage;
     }
 
     public String getTitle() {
@@ -171,12 +77,107 @@ public class Product extends BaseEntity implements Serializable {
         this.title = title;
     }
 
-    public List<Wishlist> getWishlistItems() {
-        return wishlistItems;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setWishlistItems(List<Wishlist> wishlistItems) {
-        this.wishlistItems = wishlistItems;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public Double getCalories() {
+        return calories;
+    }
+
+    public void setCalories(Double calories) {
+        this.calories = calories;
+    }
+
+    public Double getProtein() {
+        return protein;
+    }
+
+    public void setProtein(Double protein) {
+        this.protein = protein;
+    }
+
+    public Double getFat() {
+        return fat;
+    }
+
+    public void setFat(Double fat) {
+        this.fat = fat;
+    }
+
+    public Double getCarbs() {
+        return carbs;
+    }
+
+    public void setCarbs(Double carbs) {
+        this.carbs = carbs;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }
-
