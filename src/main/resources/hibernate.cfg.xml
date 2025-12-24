@@ -37,6 +37,7 @@
         <mapping class="com.eagle.sausageshop.entity.User"/>
         <mapping class="com.eagle.sausageshop.entity.Wishlist"/>
         <mapping class="com.eagle.sausageshop.entity.WishlistId"/>
+        <mapping class="com.eagle.sausageshop.entity.Role"/>
     </session-factory>
 
 </hibernate-configuration>

@@ -18,6 +18,15 @@ public class UserDTO {
     private String newPassword;
     private String conformPassword;
     private boolean isPrimary;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getConformPassword() {
         return conformPassword;

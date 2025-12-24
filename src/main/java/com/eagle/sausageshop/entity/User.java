@@ -6,9 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "users")
@@ -34,8 +33,6 @@ public class User extends BaseEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-
-
     @Size(max = 45)
     @Column(name = "verification_code")
     private String verificationCode;
@@ -45,10 +42,19 @@ public class User extends BaseEntity {
     private Status status;
 
     @OneToMany(mappedBy = "user")
-    private Set<Address> addresses =new HashSet<>();
+    private Set<Address> addresses = new HashSet<>();
 
-    // Other relationships omitted for brevity
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public Set<Address> getAddresses() {
         return addresses;
@@ -114,3 +120,5 @@ public class User extends BaseEntity {
         this.verificationCode = verificationCode;
     }
 }
+
+
