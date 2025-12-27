@@ -31,7 +31,6 @@
         <mapping class="com.eagle.sausageshop.entity.Setting"/>
         <mapping class="com.eagle.sausageshop.entity.Status"/>
         <mapping class="com.eagle.sausageshop.entity.Stock"/>
-        <mapping class="com.eagle.sausageshop.entity.Storage"/>
         <mapping class="com.eagle.sausageshop.entity.User"/>
         <mapping class="com.eagle.sausageshop.entity.Wishlist"/>
         <mapping class="com.eagle.sausageshop.entity.WishlistId"/>

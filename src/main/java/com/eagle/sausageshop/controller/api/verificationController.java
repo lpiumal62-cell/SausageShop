@@ -1,7 +1,6 @@
 package com.eagle.sausageshop.controller.api;
 
 
-import com.eagle.sausageshop.annotation.IsUser;
 import com.eagle.sausageshop.dto.UserDTO;
 import com.eagle.sausageshop.service.UserService;
 import com.google.gson.Gson;
@@ -14,7 +13,7 @@ import jakarta.ws.rs.core.Response;
 
 
 @Path("/verify-accounts")
-public class VerificationController {
+public class verificationController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

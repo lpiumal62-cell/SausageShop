@@ -1,82 +1,27 @@
-package com.eagle.sausageshop.entity;
+package com.eagle.sausageshop.dto;
 
-import jakarta.persistence.*;
 import java.util.List;
 
-@Entity
-public class Product extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "title", nullable = false, length = 200)
+public class ProductDTO {
     private String title;
-
-    @Column(name = "short_description", length = 500)
     private String shortDescription;
-
-    @Column(name = "long_description", columnDefinition = "TEXT")
     private String longDescription;
-
-    @ManyToOne
-    @JoinColumn(name = "categories_id", nullable = false)
-    private Category category;
-
-    @Column(name = "price", nullable = false)
+    private int categoryId;
     private double price;
-
-    @Column(name = "sale_price")
     private Double salePrice;
-
-    @Column(name = "stock_qty", nullable = false)
-    private int stockQuantity;
-
-    @Column(name = "sku", unique = true, length = 100)
+    private int stockQty;
     private String sku;
-
-    @Column(name = "calories")
+    private boolean featured;
+    private boolean popular;
+    private boolean active;
     private Double calories;
-
-    @Column(name = "protein")
     private Double protein;
-
-    @Column(name = "fat")
     private Double fat;
-
-    @Column(name = "carbs")
     private Double carbs;
-
-    @Column(name = "ingredients", columnDefinition = "TEXT")
     private String ingredients;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "product_image",
-            joinColumns = @JoinColumn(name = "product_id")
-    )
-    @Column(name = "image")
     private List<String> images;
+    private int sellerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id", nullable = false)
-    private Seller seller;
-
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -102,12 +47,12 @@ public class Product extends BaseEntity {
         this.longDescription = longDescription;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public double getPrice() {
@@ -126,12 +71,12 @@ public class Product extends BaseEntity {
         this.salePrice = salePrice;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
+    public int getStockQty() {
+        return stockQty;
     }
 
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    public void setStockQty(int stockQty) {
+        this.stockQty = stockQty;
     }
 
     public String getSku() {
@@ -140,6 +85,30 @@ public class Product extends BaseEntity {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
+
+    public boolean isPopular() {
+        return popular;
+    }
+
+    public void setPopular(boolean popular) {
+        this.popular = popular;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Double getCalories() {
@@ -188,5 +157,13 @@ public class Product extends BaseEntity {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public int getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
 }
