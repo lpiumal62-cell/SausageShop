@@ -87,6 +87,10 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>AdminAccessControlFilter</filter-name>
+        <url-pattern>/admin-add-category.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminAccessControlFilter</filter-name>
         <url-pattern>/admin-/*</url-pattern>
     </filter-mapping>
 </web-app>

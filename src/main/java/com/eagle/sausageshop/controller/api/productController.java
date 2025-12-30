@@ -1,8 +1,6 @@
 package com.eagle.sausageshop.controller.api;
 
 import com.eagle.sausageshop.dto.ProductDTO;
-import com.eagle.sausageshop.entity.Product;
-import com.eagle.sausageshop.service.FileUploadService;
 import com.eagle.sausageshop.service.ProductService;
 import com.eagle.sausageshop.util.AppUtil;
 import com.google.gson.JsonObject;
@@ -12,60 +10,50 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.glassfish.jersey.media.multipart.ContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import java.io.InputStream;
+
 import java.util.List;
 
 @Path("/products")
 public class productController {
 
-    @PUT
-    @Path("/{productId}/upload-images")
+    @Path("/save-category")
+    @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response uploadProductImages(
-            @PathParam("productId") int productId,
-            @FormDataParam("images") List<FormDataBodyPart> images,
+    public Response saveCategory(
+            @FormDataParam("categoryName") String categoryName,
+            @FormDataParam("categoryDescription") String categoryDescription,
+            @FormDataParam("categoryImage") FormDataBodyPart image,
+            @Context HttpServletRequest request,
             @Context ServletContext context) {
+
         JsonObject response = new JsonObject();
 
-        if (images == null || images.isEmpty()) {
+        if (categoryName == null || categoryName.isBlank()) {
             response.addProperty("status", false);
-            response.addProperty("message", "At least one product image is required!");
+            response.addProperty("message", "Category name is required!");
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(response.toString())
                     .build();
         }
 
-        ProductService productService = new ProductService();
-        Product product = productService.getProductById(productId);
-
-        if (product == null) {
+        if (image == null) {
             response.addProperty("status", false);
-            response.addProperty("message", "Product not found!");
-            return Response.status(Response.Status.NOT_FOUND)
+            response.addProperty("message", "Category image is required!");
+            return Response.status(Response.Status.BAD_REQUEST)
                     .entity(response.toString())
                     .build();
         }
 
-        FileUploadService uploadService = new FileUploadService(context);
-
-        for (FormDataBodyPart bodyPart : images) {
-            InputStream inputStream = bodyPart.getEntityAs(InputStream.class);
-            ContentDisposition cd = bodyPart.getContentDisposition();
-
-            FileUploadService.FileItem fileItem =
-                    uploadService.uploadFile("product/" + productId, inputStream, cd);
-
-            product.getImages().add(fileItem.getFullUrl());
-        }
-
-        String result = productService.imageUpload(product);
-        return Response.ok(result).build();
+        // Call service to add category
+        ProductService productService = new ProductService();
+        String responseJson = productService.addNewCategory(categoryName, categoryDescription, image, request, context);
+        return Response.ok().entity(responseJson).build();
     }
+
 
 
     @Path("/save-product")
@@ -79,8 +67,7 @@ public class productController {
             @Context ServletContext context) {
         
         JsonObject response = new JsonObject();
-        
-        // Validate images
+
         if (images == null || images.isEmpty()) {
             response.addProperty("status", false);
             response.addProperty("message", "At least one product image is required!");
@@ -106,6 +93,7 @@ public class productController {
         String responseJson = productService.addNewProductWithImages(productDTO, images, request, context);
         return Response.ok().entity(responseJson).build();
     }
+
 
     @Path("/categories")
     @GET

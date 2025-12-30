@@ -1,8 +1,4 @@
-/**
- * main.js
- * Global client-side logic shared across pages.
- * Uses localStorage for persistence — no cookies required.
- */
+
 (function () {
     const STORAGE_KEYS = {
         USER: 'sd_user',
@@ -17,9 +13,6 @@
         wishlist: [],
     };
 
-    /* ------------------------------------------------------------------ */
-    /* Utilities                                                          */
-    /* ------------------------------------------------------------------ */
 
     const safeJSONParse = (value, fallback) => {
         if (!value) return fallback;
@@ -45,9 +38,7 @@
         document.dispatchEvent(new CustomEvent(name, { detail }));
     };
 
-    /* ------------------------------------------------------------------ */
-    /* Component Initialisers                                             */
-    /* ------------------------------------------------------------------ */
+
 
     function initThemeToggle() {
         const toggle = document.getElementById('themeToggle');
@@ -151,10 +142,6 @@
         });
     }
 
-    /* ------------------------------------------------------------------ */
-    /* State Mutators                                                     */
-    /* ------------------------------------------------------------------ */
-
     function addToCart(productId, quantity = 1) {
         const existing = state.cart.find((item) => item.id === productId);
         if (existing) {
@@ -214,9 +201,6 @@
         dispatchGlobalEvent('wishlistUpdated', { wishlist: state.wishlist });
     }
 
-    /* ------------------------------------------------------------------ */
-    /* UI Helpers                                                         */
-    /* ------------------------------------------------------------------ */
 
     function updateCountBadges() {
         const cartCount = state.cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
@@ -241,9 +225,7 @@
         el.style.display = value > 0 ? 'flex' : 'none';
     }
 
-    /* ------------------------------------------------------------------ */
-    /* Bootstrapping                                                      */
-    /* ------------------------------------------------------------------ */
+
 
     function handleStorageSync(event) {
         if (!event.key || !Object.values(STORAGE_KEYS).includes(event.key)) return;
@@ -269,7 +251,7 @@
     document.addEventListener('componentsLoaded', initGlobalApp);
     window.addEventListener('storage', handleStorageSync);
 
-    // Expose helpers for other scripts/modules.
+
     window.SausageApp = {
         addToCart,
         removeFromCart,

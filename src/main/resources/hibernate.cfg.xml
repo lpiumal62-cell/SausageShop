@@ -8,7 +8,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sausage_shop?useSSL=false&amp;allowPublicKeyRetrieval=true</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.password">Zxcv12345%</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
 
@@ -16,6 +16,7 @@
         <mapping class="com.eagle.sausageshop.entity.BaseEntity"/>
         <mapping class="com.eagle.sausageshop.entity.Cart"/>
         <mapping class="com.eagle.sausageshop.entity.Category"/>
+        <mapping class="com.eagle.sausageshop.entity.CategoryImage"/>
         <mapping class="com.eagle.sausageshop.entity.City"/>
         <mapping class="com.eagle.sausageshop.entity.ContactMessage"/>
         <mapping class="com.eagle.sausageshop.entity.Coupon"/>

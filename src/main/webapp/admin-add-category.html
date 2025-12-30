@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category - Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-gray-50">
+<!-- Sidebar -->
+<aside id="adminSidebar"
+       class="fixed left-0 top-0 h-full w-64 bg-gray-800 text-white z-30 transition-transform duration-300">
+    <div class="p-6 border-b border-gray-700">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-drumstick-bite text-3xl text-orange-500"></i>
+            <div><h2 class="text-xl font-bold">Sausage Delight</h2>
+                <p class="text-xs text-gray-400">Admin Panel</p></div>
+        </div>
+    </div>
+    <nav class="p-4">
+        <ul class="space-y-2">
+            <li><a href="admin-dashboard.html"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
+                   data-page="dashboard"><i class="fas fa-chart-line mr-3 w-5"></i><span>Dashboard</span></a></li>
+            <li><a href="admin-products.html"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
+                   data-page="products"><i class="fas fa-box mr-3 w-5"></i><span>Products</span></a></li>
+            <li><a href="admin-add-product.html"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
+                   data-page="add-product"><i class="fas fa-plus-circle mr-3 w-5"></i><span>Add Product</span></a>
+            </li>
+            <li><a href="admin-add-category.html"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg bg-orange-500 text-white"
+                   data-page="add-category"><i class="fas fa-tags mr-3 w-5"></i><span>Add Category</span></a>
+            </li>
+            <li><a href="admin-orders.html"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
+                   data-page="orders"><i class="fas fa-shopping-cart mr-3 w-5"></i><span>Orders</span></a></li>
+            <li><a href="admin-customers.html"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
+                   data-page="customers"><i class="fas fa-users mr-3 w-5"></i><span>Customers</span></a></li>
+            <li><a href="admin-settings.html"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
+                   data-page="settings"><i class="fas fa-cog mr-3 w-5"></i><span>Settings</span></a></li>
+            <li class="pt-4 border-t border-gray-700">
+                <button id="adminLogoutBtn" onclick="logOut();"
+                        class="w-full flex items-center px-4 py-3 rounded-lg hover:bg-red-600 transition text-red-400 hover:text-white">
+                    <i class="fas fa-sign-out-alt mr-3 w-5"></i><span>Logout</span></button>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<!-- Main Content -->
+<div class="ml-64 transition-all duration-300" id="adminMainContent">
+    <!-- Top Bar -->
+    <header class="bg-white shadow-md sticky top-0 z-20">
+        <div class="flex items-center justify-between px-6 py-4">
+            <button id="sidebarToggle" class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg"><i
+                    class="fas fa-bars text-xl"></i></button>
+            <h1 class="text-2xl font-bold text-gray-800" id="adminPageTitle">Add New Category</h1>
+            <div class="flex items-center space-x-4">
+                <button id="adminThemeToggle" class="p-2 text-gray-600 hover:text-orange-500 transition"><i
+                        class="fas fa-moon text-xl" id="themeIcon"></i></button>
+                <div class="relative">
+                    <button id="adminProfileBtn"
+                            class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition">
+                        <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                            <span id="adminInitials">AD</span></div>
+                        <span class="hidden md:block text-gray-700 font-medium" id="adminName">Admin User</span>
+                    </button>
+                </div>
+            </div>
+            <a href="admin-settings.html" class="text-gray-600 hover:text-gray-800">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Settings
+            </a>
+        </div>
+    </header>
+
+    <main class="p-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Category Information</h2>
+                    <p class="text-gray-600">Add a new category with name, description, and image</p>
+                </div>
+
+                <form id="addCategoryForm" class="space-y-6">
+                    <!-- Category Name -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Category Name <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               id="categoryName" 
+                               name="categoryName"
+                               placeholder="Enter category name (e.g., Chicken, Pork, Beef)"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                               >
+                        <p class="mt-1 text-sm text-gray-500">Choose a clear and descriptive name for the category</p>
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Description <span class="text-gray-400 text-sm">(Optional)</span>
+                        </label>
+                        <textarea id="categoryDescription" 
+                                  name="categoryDescription"
+                                  rows="4"
+                                  placeholder="Brief description of the category..."
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition resize-none"></textarea>
+                        <p class="mt-1 text-sm text-gray-500">Add a description to help identify this category</p>
+                    </div>
+
+                    <!-- Category Image Upload -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            Category Image <span class="text-red-500">*</span>
+                        </label>
+                        <div id="uploadContainer" 
+                             class="relative border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gradient-to-br from-gray-50 to-white hover:border-orange-400 hover:bg-gradient-to-br hover:from-orange-50 hover:to-white transition-all duration-300 cursor-pointer group">
+                            
+                            <!-- Image Preview -->
+                            <div id="imagePreview" class="mb-4 hidden">
+                                <div class="relative inline-block">
+                                    <img id="previewImg" src="" alt="Preview" 
+                                         class="max-w-full max-h-64 mx-auto rounded-xl shadow-lg object-cover">
+                                    <button type="button" 
+                                            id="removeImageBtn"
+                                            onclick="removeImage()"
+                                            class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition shadow-lg">
+                                        <i class="fas fa-times text-sm"></i>
+                                    </button>
+                                </div>
+                                <p id="fileName" class="mt-2 text-sm text-gray-600 font-medium"></p>
+                            </div>
+                            
+                            <!-- Upload Area -->
+                            <div id="uploadArea" class="cursor-pointer">
+                                <div class="flex flex-col items-center justify-center">
+                                    <div class="relative mb-4">
+                                        <div class="absolute inset-0 bg-orange-200 rounded-full blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                        <i class="fas fa-cloud-upload-alt text-6xl text-gray-400 group-hover:text-orange-500 relative z-10 transition-all duration-300 transform group-hover:scale-110"></i>
+                                    </div>
+                                    <p class="text-gray-700 mb-2 font-semibold text-lg group-hover:text-orange-600 transition-colors">
+                                        Click to upload or drag and drop
+                                    </p>
+                                    <p class="text-sm text-gray-500 mb-4">
+                                        <span class="inline-flex items-center px-2 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-medium">
+                                            <i class="fas fa-image mr-1"></i>PNG, JPG, GIF
+                                        </span>
+                                        <span class="mx-2 text-gray-400">•</span>
+                                        <span class="text-gray-500">Up to 5MB</span>
+                                    </p>
+                                    <input type="file" 
+                                           id="categoryImage" 
+                                           name="categoryImage"
+                                           accept="image/*"
+                                           class="hidden">
+                                    <label for="categoryImage" 
+                                           class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer">
+                                        <i class="fas fa-image mr-2"></i>
+                                        <span>Choose Image</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Drag Overlay -->
+                            <div id="dragOverlay" 
+                                 class="absolute inset-0 bg-orange-500 bg-opacity-10 border-4 border-dashed border-orange-500 rounded-xl hidden items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-cloud-upload-alt text-6xl text-orange-500 mb-4 animate-bounce"></i>
+                                    <p class="text-orange-600 font-bold text-xl">Drop your image here</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500 flex items-center">
+                            <i class="fas fa-info-circle mr-2 text-orange-500"></i>
+                            Upload an image to represent this category
+                        </p>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
+                        <a href="admin-settings.html" 
+                           class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition">
+                            <i class="fas fa-times mr-2"></i>Cancel
+                        </a>
+                        <button type="button" onclick="saveCategory();"
+                                class="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white
+                                rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition shadow-lg hover:shadow-xl
+                                transform hover:scale-105">
+                            <i class="fas fa-save mr-2"></i>Save Category
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Info Card -->
+            <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-semibold text-blue-800 mb-1">Category Tips</h3>
+                        <ul class="text-sm text-blue-700 space-y-1 list-disc list-inside">
+                            <li>Use clear and descriptive category names</li>
+                            <li>Keep category names short (2-3 words)</li>
+                            <li>Avoid duplicate categories</li>
+                            <li>Upload a high-quality image for better display</li>
+                            <li>Categories help customers find products easily</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
+<script src="assets/js/adminPofile.js"></script>
+<script src="assets/js/load-components.js"></script>
+<script src="assets/js/category.js"></script>
+
+<script>
+    // Enhanced file upload with drag and drop
+    const uploadContainer = document.getElementById('uploadContainer');
+    const categoryImage = document.getElementById('categoryImage');
+    const imagePreview = document.getElementById('imagePreview');
+    const uploadArea = document.getElementById('uploadArea');
+    const previewImg = document.getElementById('previewImg');
+    const fileName = document.getElementById('fileName');
+    const dragOverlay = document.getElementById('dragOverlay');
+
+    // File input change handler
+    categoryImage.addEventListener('change', function(e) {
+        handleFileSelect(e.target.files[0]);
+    });
+
+    // Drag and drop handlers
+    uploadContainer.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragOverlay.classList.remove('hidden');
+        dragOverlay.classList.add('flex');
+        uploadContainer.classList.add('border-orange-500', 'bg-orange-50');
+    });
+
+    uploadContainer.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragOverlay.classList.add('hidden');
+        dragOverlay.classList.remove('flex');
+        uploadContainer.classList.remove('border-orange-500', 'bg-orange-50');
+    });
+
+    uploadContainer.addEventListener('drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragOverlay.classList.add('hidden');
+        dragOverlay.classList.remove('flex');
+        uploadContainer.classList.remove('border-orange-500', 'bg-orange-50');
+
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            const file = files[0];
+            if (file.type.startsWith('image/')) {
+                categoryImage.files = files;
+                handleFileSelect(file);
+            } else {
+                if (typeof Notiflix !== 'undefined') {
+                    Notiflix.Notify.failure('Please select an image file!', {
+                        position: 'center-top'
+                    });
+                }
+            }
+        }
+    });
+
+    // Handle file selection
+    function handleFileSelect(file) {
+        if (!file) return;
+
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            if (typeof Notiflix !== 'undefined') {
+                Notiflix.Notify.failure('Please select an image file!', {
+                    position: 'center-top'
+                });
+            }
+            return;
+        }
+
+        // Validate file size (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            if (typeof Notiflix !== 'undefined') {
+                Notiflix.Notify.failure('File size must be less than 5MB!', {
+                    position: 'center-top'
+                });
+            }
+            return;
+        }
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            fileName.textContent = file.name;
+            imagePreview.classList.remove('hidden');
+            uploadArea.classList.add('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Remove image function
+    function removeImage() {
+        categoryImage.value = '';
+        imagePreview.classList.add('hidden');
+        uploadArea.classList.remove('hidden');
+        previewImg.src = '';
+        fileName.textContent = '';
+    }
+
+    // Click on container to trigger file input
+    uploadContainer.addEventListener('click', function(e) {
+        if (e.target !== categoryImage && e.target !== dragOverlay && !e.target.closest('#removeImageBtn')) {
+            categoryImage.click();
+        }
+    });
+</script>
+</body>
+</html>
+

@@ -51,7 +51,6 @@ async function productImages(productId) {
     }
 }
 
-
 async function saveProduct() {
     Notiflix.Loading.pulse("Saving product...", {
         clickToClose: false,
@@ -72,12 +71,12 @@ async function saveProduct() {
     let nutritionCarbs = document.getElementById("nutritionCarbs");
     let nutritionProtein = document.getElementById("nutritionProtein");
 
-    // Get image files
+
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
     const img3 = document.getElementById("img3");
 
-    // Validate that at least one image is provided
+
     if (!img1.files.length && !img2.files.length && !img3.files.length) {
         Notiflix.Loading.remove();
         Notiflix.Notify.failure("At least one product image is required!", {
@@ -105,21 +104,21 @@ async function saveProduct() {
     const formData = new FormData();
     formData.append("product", JSON.stringify(productData));
     
-    // Add images to form data
+
     if (img1.files[0]) formData.append("images", img1.files[0]);
     if (img2.files[0]) formData.append("images", img2.files[0]);
     if (img3.files[0]) formData.append("images", img3.files[0]);
 
-    try {
-        const response = await fetch("api/products/save-product", {
-            method: "POST",
-            body: formData
-        });
+        try {
+            const response = await fetch("api/products/save-product", {
+                method: "POST",
+                body: formData
+            });
         
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            if (data.status) {
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                if (data.status) {
                 Notiflix.Report.success(
                     "SausageShop",
                     data.message || "Product added successfully!",
@@ -129,15 +128,15 @@ async function saveProduct() {
                         window.location.reload();
                     }
                 );
+                } else {
+                    Notiflix.Notify.failure(data.message, {
+                        position: 'center-top'
+                    });
+                }
             } else {
-                Notiflix.Notify.failure(data.message, {
+                Notiflix.Notify.failure("Product details adding failed!", {
                     position: 'center-top'
                 });
-            }
-        } else {
-            Notiflix.Notify.failure("Product details adding failed!", {
-                position: 'center-top'
-            });
         }
     } catch (e) {
         Notiflix.Notify.failure(e.message, {
@@ -180,41 +179,4 @@ function renderDropdowns(selector, list, suffix) {
         selector.appendChild(option);
     });
 
-}
-
-async function logOut() {
-    // alert("ok");
-    Notiflix.Loading.pulse("Wait...", {
-        clickToClose: false,
-        svgColor: '#0284c7'
-    });
-
-    try {
-        const response = await fetch("api/admin/logout", {
-            method: "GET",
-            credentials: "include"
-        });
-        if (response.ok) {
-
-            Notiflix.Report.success(
-                'SausageShop Admin Panel',
-                "Logout successful",
-                'Okay',
-                () => {
-                    window.location = "admin-login.html";
-                }
-            );
-        } else {
-            Notiflix.Notify.failure("Something went wrong. Logout failed!", {
-                position: 'center-top'
-            });
-        }
-
-    } catch (e) {
-        Notiflix.Notify.failure(e.message, {
-            position: 'center-top'
-        });
-    } finally {
-        Notiflix.Loading.remove(1000);
-    }
 }

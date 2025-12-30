@@ -24,7 +24,8 @@
             <ul class="space-y-2">
                 <li><a href="admin-dashboard.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300" data-page="dashboard"><i class="fas fa-chart-line mr-3 w-5"></i><span>Dashboard</span></a></li>
                 <li><a href="admin-products.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300" data-page="products"><i class="fas fa-box mr-3 w-5"></i><span>Products</span></a></li>
-                <li><a href="admin-add-product.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300" data-page="add-product"><i class="fas fa-plus-circle mr-3 w-5"></i><span>Add New Product</span></a></li>
+                <li><a href="admin-add-product.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300" data-page="add-product"><i class="fas fa-plus-circle mr-3 w-5"></i><span>Add Product</span></a></li>
+                <li><a href="admin-add-category.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300" data-page="add-category"><i class="fas fa-tags mr-3 w-5"></i><span>Add Category</span></a></li>
                 <li><a href="admin-orders.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300" data-page="orders"><i class="fas fa-shopping-cart mr-3 w-5"></i><span>Orders</span></a></li>
                 <li><a href="admin-customers.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300" data-page="customers"><i class="fas fa-users mr-3 w-5"></i><span>Customers</span></a></li>
                 <li><a href="admin-settings.html" class="admin-nav-link flex items-center px-4 py-3 rounded-lg bg-orange-500 text-white" data-page="settings"><i class="fas fa-cog mr-3 w-5"></i><span>Settings</span></a></li>
@@ -53,107 +54,292 @@
         </header>
 
         <main class="p-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 <!-- Settings Menu -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-lg shadow-md p-4">
+                    <div class="bg-white rounded-lg shadow-md p-4 sticky top-24">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 px-2">Settings</h3>
                         <ul class="space-y-2" id="settingsMenu">
-                            <li><a href="#general" class="settings-tab block px-4 py-2 rounded-lg bg-orange-500 text-white" data-tab="general">General</a></li>
-                            <li><a href="#shipping" class="settings-tab block px-4 py-2 rounded-lg hover:bg-gray-100 text-gray-700" data-tab="shipping">Shipping</a></li>
-                            <li><a href="#contact" class="settings-tab block px-4 py-2 rounded-lg hover:bg-gray-100 text-gray-700" data-tab="contact">Contact Info</a></li>
-                            <li><a href="#profile" class="settings-tab block px-4 py-2 rounded-lg hover:bg-gray-100 text-gray-700" data-tab="profile">Profile</a></li>
+                            <li>
+                                <a href="#general" class="settings-tab flex items-center px-4 py-3 rounded-lg bg-orange-500 text-white transition" data-tab="general">
+                                    <i class="fas fa-cog mr-3 w-5"></i>
+                                    <span>General</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#shipping" class="settings-tab flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-700 transition" data-tab="shipping">
+                                    <i class="fas fa-shipping-fast mr-3 w-5"></i>
+                                    <span>Shipping</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#contact" class="settings-tab flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-700 transition" data-tab="contact">
+                                    <i class="fas fa-address-card mr-3 w-5"></i>
+                                    <span>Contact Info</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#profile" class="settings-tab flex items-center px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-700 transition" data-tab="profile">
+                                    <i class="fas fa-user-circle mr-3 w-5"></i>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- Settings Content -->
-                <div class="lg:col-span-2">
+                <div class="lg:col-span-3">
                     <!-- General Settings -->
-                    <div id="generalSettings" class="settings-content bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-xl font-bold text-gray-800 mb-6">General Settings</h2>
+                    <div id="generalSettings" class="settings-content bg-white rounded-lg shadow-md p-8">
+                        <div class="mb-6 border-b border-gray-200 pb-4">
+                            <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                                <i class="fas fa-cog mr-3 text-orange-500"></i>
+                                General Settings
+                            </h2>
+                            <p class="text-gray-600 mt-2">Configure your store's basic information and preferences</p>
+                        </div>
                         <form id="generalSettingsForm" class="space-y-6">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Site Name</label>
-                                <input type="text" id="siteName" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="Sausage Delight">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Site Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="siteName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="Sausage Delight">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Site Tagline</label>
+                                    <input type="text" id="siteTagline" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="Premium Quality Sausages">
+                                </div>
                             </div>
+
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Site Email</label>
-                                <input type="email" id="siteEmail" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="info@sausagedelight.com">
+                                <label class="block text-gray-700 font-semibold mb-2">Site Email <span class="text-red-500">*</span></label>
+                                <input type="email" id="siteEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="info@sausagedelight.com">
                             </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Tax Rate (%)</label>
+                                    <input type="number" id="taxRate" step="0.1" min="0" max="100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="8.5">
+                                    <p class="text-sm text-gray-500 mt-1">Tax percentage applied to orders</p>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Currency</label>
+                                    <select id="currency" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition">
+                                        <option value="USD">USD ($)</option>
+                                        <option value="EUR">EUR (€)</option>
+                                        <option value="GBP">GBP (£)</option>
+                                        <option value="CAD">CAD (C$)</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Tax Rate (%)</label>
-                                <input type="number" id="taxRate" step="0.1" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="8.5">
+                                <label class="block text-gray-700 font-semibold mb-2">Store Description</label>
+                                <textarea id="storeDescription" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition resize-none" placeholder="Brief description of your store..."></textarea>
                             </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Currency</label>
-                                <select id="currency" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-                                    <option value="USD">USD ($)</option>
-                                    <option value="EUR">EUR (€)</option>
-                                    <option value="GBP">GBP (£)</option>
-                                </select>
+
+                            <div class="flex items-center justify-end pt-4 border-t border-gray-200">
+                                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition shadow-lg hover:shadow-xl">
+                                    <i class="fas fa-save mr-2"></i>Save Changes
+                                </button>
                             </div>
-                            <button type="submit" class="px-6 py-2 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition">
-                                Save Changes
-                            </button>
                         </form>
                     </div>
 
                     <!-- Shipping Settings -->
-                    <div id="shippingSettings" class="settings-content hidden bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-xl font-bold text-gray-800 mb-6">Shipping Settings</h2>
+                    <div id="shippingSettings" class="settings-content hidden bg-white rounded-lg shadow-md p-8">
+                        <div class="mb-6 border-b border-gray-200 pb-4">
+                            <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                                <i class="fas fa-shipping-fast mr-3 text-orange-500"></i>
+                                Shipping Settings
+                            </h2>
+                            <p class="text-gray-600 mt-2">Configure shipping costs and delivery options</p>
+                        </div>
                         <form id="shippingSettingsForm" class="space-y-6">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Standard Shipping Cost ($)</label>
-                                <input type="number" id="shippingCost" step="0.01" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="5.99">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Standard Shipping Cost ($) <span class="text-red-500">*</span></label>
+                                    <input type="number" id="shippingCost" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="5.99">
+                                    <p class="text-sm text-gray-500 mt-1">Base shipping cost for standard delivery</p>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Express Shipping Cost ($)</label>
+                                    <input type="number" id="expressShippingCost" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="12.99">
+                                    <p class="text-sm text-gray-500 mt-1">Cost for express delivery</p>
+                                </div>
                             </div>
+
                             <div>
                                 <label class="block text-gray-700 font-semibold mb-2">Free Shipping Threshold ($)</label>
-                                <input type="number" id="freeShippingThreshold" step="0.01" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="50.00">
-                                <p class="text-sm text-gray-500 mt-1">Orders above this amount get free shipping</p>
+                                <input type="number" id="freeShippingThreshold" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="50.00">
+                                <p class="text-sm text-gray-500 mt-1">Orders above this amount get free standard shipping</p>
                             </div>
-                            <button type="submit" class="px-6 py-2 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition">
-                                Save Changes
-                            </button>
+
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Estimated Delivery Days</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">Standard (days)</label>
+                                        <input type="number" id="standardDeliveryDays" min="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="5">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-600 mb-1">Express (days)</label>
+                                        <input type="number" id="expressDeliveryDays" min="1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-end pt-4 border-t border-gray-200">
+                                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition shadow-lg hover:shadow-xl">
+                                    <i class="fas fa-save mr-2"></i>Save Changes
+                                </button>
+                            </div>
                         </form>
                     </div>
 
                     <!-- Contact Settings -->
-                    <div id="contactSettings" class="settings-content hidden bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-xl font-bold text-gray-800 mb-6">Contact Information</h2>
+                    <div id="contactSettings" class="settings-content hidden bg-white rounded-lg shadow-md p-8">
+                        <div class="mb-6 border-b border-gray-200 pb-4">
+                            <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                                <i class="fas fa-address-card mr-3 text-orange-500"></i>
+                                Contact Information
+                            </h2>
+                            <p class="text-gray-600 mt-2">Update your store's contact details</p>
+                        </div>
                         <form id="contactSettingsForm" class="space-y-6">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Phone Number</label>
-                                <input type="tel" id="contactPhone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="+1 (555) 123-4567">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Phone Number <span class="text-red-500">*</span></label>
+                                    <input type="tel" id="contactPhone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="+1 (555) 123-4567" placeholder="+1 (555) 123-4567">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Mobile Number</label>
+                                    <input type="tel" id="contactMobile" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="+1 (555) 987-6543">
+                                </div>
                             </div>
+
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Address</label>
-                                <textarea id="contactAddress" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+                                <label class="block text-gray-700 font-semibold mb-2">Email Address <span class="text-red-500">*</span></label>
+                                <input type="email" id="contactEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="contact@sausagedelight.com" placeholder="contact@example.com">
                             </div>
-                            <button type="submit" class="px-6 py-2 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition">
-                                Save Changes
-                            </button>
+
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Street Address <span class="text-red-500">*</span></label>
+                                <input type="text" id="streetAddress" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="123 Main Street">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">City</label>
+                                    <input type="text" id="contactCity" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="New York">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">State/Province</label>
+                                    <input type="text" id="contactState" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="NY">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Postal Code</label>
+                                    <input type="text" id="contactPostalCode" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="10001">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Country</label>
+                                <select id="contactCountry" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition">
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                </select>
+                            </div>
+
+                            <div class="flex items-center justify-end pt-4 border-t border-gray-200">
+                                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition shadow-lg hover:shadow-xl">
+                                    <i class="fas fa-save mr-2"></i>Save Changes
+                                </button>
+                            </div>
                         </form>
                     </div>
 
                     <!-- Profile Settings -->
-                    <div id="profileSettings" class="settings-content hidden bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-xl font-bold text-gray-800 mb-6">Admin Profile</h2>
+                    <div id="profileSettings" class="settings-content hidden bg-white rounded-lg shadow-md p-8">
+                        <div class="mb-6 border-b border-gray-200 pb-4">
+                            <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                                <i class="fas fa-user-circle mr-3 text-orange-500"></i>
+                                Admin Profile
+                            </h2>
+                            <p class="text-gray-600 mt-2">Manage your personal information and account settings</p>
+                        </div>
                         <form id="profileSettingsForm" class="space-y-6">
+                            <!-- Profile Picture -->
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Name</label>
-                                <input type="text" id="adminNameInput" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="Admin User">
+                                <label class="block text-gray-700 font-semibold mb-2">Profile Picture</label>
+                                <div class="flex items-center space-x-6">
+                                    <div class="relative">
+                                        <div class="w-24 h-24 rounded-full bg-orange-500 flex items-center justify-center text-white text-3xl font-bold border-4 border-gray-200">
+                                            <span id="profileInitials">AD</span>
+                                        </div>
+                                        <div id="profileImagePreview" class="hidden w-24 h-24 rounded-full overflow-hidden border-4 border-gray-200">
+                                            <img id="profilePreviewImg" src="" alt="Profile" class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="file" id="profilePicture" accept="image/*" class="hidden">
+                                        <label for="profilePicture" class="inline-block px-6 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition cursor-pointer">
+                                            <i class="fas fa-upload mr-2"></i>Upload Photo
+                                        </label>
+                                        <p class="text-sm text-gray-500 mt-2">JPG, PNG or GIF. Max size 2MB</p>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">First Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="adminFirstName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="Admin" placeholder="John">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-semibold mb-2">Last Name <span class="text-red-500">*</span></label>
+                                    <input type="text" id="adminLastName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="User" placeholder="Doe">
+                                </div>
+                            </div>
+
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Email</label>
-                                <input type="email" id="adminEmailInput" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" value="admin@sausagedelight.com" readonly>
+                                <label class="block text-gray-700 font-semibold mb-2">Email Address <span class="text-red-500">*</span></label>
+                                <input type="email" id="adminEmailInput" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" value="admin@sausagedelight.com" readonly>
+                                <p class="text-sm text-gray-500 mt-1">Email cannot be changed</p>
                             </div>
+
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Change Password</label>
-                                <input type="password" id="newPassword" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Enter new password">
+                                <label class="block text-gray-700 font-semibold mb-2">Phone Number</label>
+                                <input type="tel" id="adminPhone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="+1 (555) 123-4567">
                             </div>
-                            <button type="submit" class="px-6 py-2 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition">
-                                Save Changes
-                            </button>
+
+                            <div class="border-t border-gray-200 pt-6">
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Change Password</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-gray-700 font-semibold mb-2">Current Password</label>
+                                        <input type="password" id="currentPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="Enter current password">
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-gray-700 font-semibold mb-2">New Password</label>
+                                            <input type="password" id="newPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="Enter new password">
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 font-semibold mb-2">Confirm New Password</label>
+                                            <input type="password" id="confirmPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition" placeholder="Confirm new password">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-end pt-4 border-t border-gray-200">
+                                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition shadow-lg hover:shadow-xl">
+                                    <i class="fas fa-save mr-2"></i>Save Changes
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -164,7 +350,69 @@
     <script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
     <script src="assets/js/adminPofile.js"></script>
     <script src="assets/js/load-components.js"></script>
-    <script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
+
+    <script>
+        // Tab switching functionality (design only)
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.settings-tab');
+            const contents = document.querySelectorAll('.settings-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Update tab styles
+                    tabs.forEach(t => {
+                        t.classList.remove('bg-orange-500', 'text-white');
+                        t.classList.add('hover:bg-gray-100', 'text-gray-700');
+                    });
+                    this.classList.remove('hover:bg-gray-100', 'text-gray-700');
+                    this.classList.add('bg-orange-500', 'text-white');
+                    
+                    // Show/hide content
+                    contents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(targetTab + 'Settings').classList.remove('hidden');
+                });
+            });
+
+            // Profile picture preview (design only)
+            const profilePictureInput = document.getElementById('profilePicture');
+            const profileImagePreview = document.getElementById('profileImagePreview');
+            const profilePreviewImg = document.getElementById('profilePreviewImg');
+            const profileInitials = document.getElementById('profileInitials');
+
+            profilePictureInput?.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePreviewImg.src = e.target.result;
+                        profileImagePreview.classList.remove('hidden');
+                        profileInitials.parentElement.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form submission handlers (design only - prevent default)
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log('Form submission prevented (design only)');
+                });
+            });
+        });
+
+        // Sidebar toggle for mobile
+        document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+            document.getElementById('adminSidebar').classList.toggle('-translate-x-full');
+        });
+    </script>
 </body>
 </html>
 
