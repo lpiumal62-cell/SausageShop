@@ -38,4 +38,40 @@ public class adminProfileController {
         String responseJson = new AdminService().adminLogin(userDTO, request);
         return Response.ok().entity(responseJson).build();
     }
+
+    @IsUser
+    @Path("/products")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProducts() {
+        String responseJson = new AdminService().getAllProducts();
+        return Response.ok().entity(responseJson).build();
+    }
+
+    @IsUser
+    @Path("/products/{productId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductById(@PathParam("productId") int productId) {
+        String responseJson = new AdminService().getProductById(productId);
+        return Response.ok().entity(responseJson).build();
+    }
+
+    @IsUser
+    @Path("/dashboard/stats")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDashboardStats() {
+        String responseJson = new AdminService().getDashboardStats();
+        return Response.ok().entity(responseJson).build();
+    }
+
+    @IsUser
+    @Path("/orders")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllOrders() {
+        String responseJson = new AdminService().getAllOrders();
+        return Response.ok().entity(responseJson).build();
+    }
 }

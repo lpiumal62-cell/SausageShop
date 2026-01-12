@@ -14,7 +14,13 @@
         });
     }
 
-    elements.tabs.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+    elements.tabs.forEach(btn => btn.addEventListener('click', () => {
+        switchTab(btn.dataset.tab);
+        // Load orders when orders tab is clicked
+        if (btn.dataset.tab === 'orders' && typeof loadOrders === 'function') {
+            loadOrders();
+        }
+    }));
     window.switchTab = switchTab;
     switchTab('dashboard');
 

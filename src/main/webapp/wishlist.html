@@ -16,10 +16,14 @@
     <div id="header-placeholder"></div>
 
     <!-- Wishlist Header -->
-    <section class="bg-orange-600 text-white py-12">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold mb-2">My Wishlist</h1>
-            <p class="text-xl opacity-90">Your favorite products</p>
+    <section class="bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 text-white py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">My Wishlist</h1>
+            <p class="text-2xl opacity-95">Your favorite products saved for later</p>
         </div>
     </section>
 
@@ -27,27 +31,28 @@
     <section class="py-12 relative">
         <div class="absolute inset-0 bg-gradient-to-b from-orange-50 via-transparent to-white pointer-events-none"></div>
         <div class="container mx-auto px-4 relative space-y-12">
+            <!-- Stats and Actions Cards -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="bg-white rounded-3xl shadow-xl border border-orange-100 p-6 flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Saved Picks</p>
-                        <p id="wishlistItemCount" class="text-4xl font-extrabold text-gray-900">0</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Saved Items</p>
+                        <p class="text-4xl font-extrabold text-gray-900 mt-2">5</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Potential Savings</p>
-                        <p id="wishlistSavings" class="text-2xl font-bold text-emerald-500">$0.00</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide font-semibold">Potential Savings</p>
+                        <p class="text-2xl font-bold text-emerald-500 mt-2">$8.50</p>
                     </div>
                 </div>
                 <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl shadow-xl text-white p-6 flex items-center justify-between">
                     <div>
-                        <p class="text-sm uppercase tracking-wide text-white/80">Quick Actions</p>
-                        <h3 class="text-2xl font-semibold mt-2">Treat yourself today</h3>
+                        <p class="text-sm uppercase tracking-wide text-white/80 font-semibold">Quick Actions</p>
+                        <h3 class="text-2xl font-semibold mt-2">Manage Your List</h3>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <button id="wishlistClearBtn" class="bg-white/15 border border-white/30 rounded-2xl px-4 py-2 text-sm font-semibold hover:bg-white/25 transition">
+                        <button class="bg-white/15 border border-white/30 rounded-2xl px-4 py-2 text-sm font-semibold hover:bg-white/25 transition">
                             <i class="fas fa-trash-alt mr-2"></i>Clear All
                         </button>
-                        <button id="wishlistShareBtn" class="bg-white text-orange-600 rounded-2xl px-4 py-2 text-sm font-semibold hover:-translate-y-0.5 transition shadow-lg">
+                        <button class="bg-white text-orange-600 rounded-2xl px-4 py-2 text-sm font-semibold hover:-translate-y-0.5 transition shadow-lg">
                             <i class="fas fa-share-alt mr-2"></i>Share List
                         </button>
                     </div>
@@ -55,41 +60,294 @@
                 <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 flex flex-col gap-4">
                     <div class="flex items-center justify-between">
                         <p class="text-sm text-gray-500 font-semibold">Sort by</p>
-                        <select id="wishlistSortSelect" class="border border-gray-200 rounded-2xl px-4 py-2 text-sm focus:ring-2 focus:ring-orange-500">
+                        <select class="border border-gray-200 rounded-2xl px-4 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
                             <option value="recent">Recently Added</option>
                             <option value="price_low">Price: Low to High</option>
                             <option value="price_high">Price: High to Low</option>
-                            <option value="rating">Top Rated</option>
+                            <option value="name">Name: A to Z</option>
                         </select>
                     </div>
-                    <div class="flex flex-wrap gap-3" id="wishlistTagFilters">
-                        <!-- dynamic filters -->
+                    <div class="flex flex-wrap gap-3">
+                        <button class="px-4 py-2 rounded-full text-sm border border-gray-200 hover:border-orange-400 transition bg-orange-500 text-white border-orange-500">
+                            Classic
+                        </button>
+                        <button class="px-4 py-2 rounded-full text-sm border border-gray-200 hover:border-orange-400 transition text-gray-600 bg-white">
+                            Smoked
+                        </button>
+                        <button class="px-4 py-2 rounded-full text-sm border border-gray-200 hover:border-orange-400 transition text-gray-600 bg-white">
+                            Spicy
+                        </button>
+                        <button class="px-4 py-2 rounded-full text-sm border border-gray-200 hover:border-orange-400 transition text-gray-600 bg-white">
+                            Gourmet
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div id="wishlistEmpty" class="hidden text-center py-16 bg-white rounded-3xl shadow-lg border border-dashed border-gray-200">
-                <i class="fas fa-heart text-6xl text-gray-300 mb-4"></i>
-                <h2 class="text-2xl font-bold text-gray-700 mb-4">Your wishlist is empty</h2>
-                <p class="text-gray-500 mb-6">Start adding products you love to your wishlist!</p>
-                <a href="shop.html" class="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 shadow-lg hover:shadow-xl transition">
-                    Browse Products
-                </a>
+            <!-- Wishlist Items Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <!-- Wishlist Item 1 -->
+                <article class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?auto=format&fit=crop&w=600&q=60" 
+                            alt="Classic Bratwurst" 
+                            class="w-full h-56 object-cover"
+                        >
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">Sale</span>
+                        <button class="absolute top-4 right-4 text-white bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all transform hover:scale-110" title="Remove from wishlist">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Classic</p>
+                        <h3 class="text-xl font-bold text-gray-900 mt-2 mb-2 line-clamp-2">Classic Bratwurst</h3>
+                        <p class="text-sm text-gray-500 mb-3 line-clamp-2 flex-1">Traditional German-style sausage with a juicy bite and authentic flavor</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-extrabold text-gray-900">$12.99</p>
+                                <p class="text-sm text-gray-400 line-through">$14.99</p>
+                                <p class="text-xs text-emerald-500 font-semibold mt-1">Save $2.00</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <button class="flex-1 px-4 py-2 rounded-full border border-gray-200 text-sm font-semibold text-gray-600 hover:border-red-400 hover:text-red-500 transition">
+                                <i class="fas fa-trash-alt mr-2"></i>Remove
+                            </button>
+                            <button class="flex-1 px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-lg hover:from-orange-600 hover:to-red-600 transition transform hover:scale-105">
+                                <i class="fas fa-cart-plus mr-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Wishlist Item 2 -->
+                <article class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1446000442451-e162542e5f63?auto=format&fit=crop&w=600&q=60" 
+                            alt="Smoked Chicken Sausage" 
+                            class="w-full h-56 object-cover"
+                        >
+                        <button class="absolute top-4 right-4 text-white bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all transform hover:scale-110" title="Remove from wishlist">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Smoked</p>
+                        <h3 class="text-xl font-bold text-gray-900 mt-2 mb-2 line-clamp-2">Smoked Chicken Sausage</h3>
+                        <p class="text-sm text-gray-500 mb-3 line-clamp-2 flex-1">Applewood smoked chicken with herbs and natural flavors</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-extrabold text-gray-900">$10.50</p>
+                                <p class="text-sm text-gray-400 line-through">$12.50</p>
+                                <p class="text-xs text-emerald-500 font-semibold mt-1">Save $2.00</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <button class="flex-1 px-4 py-2 rounded-full border border-gray-200 text-sm font-semibold text-gray-600 hover:border-red-400 hover:text-red-500 transition">
+                                <i class="fas fa-trash-alt mr-2"></i>Remove
+                            </button>
+                            <button class="flex-1 px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-lg hover:from-orange-600 hover:to-red-600 transition transform hover:scale-105">
+                                <i class="fas fa-cart-plus mr-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Wishlist Item 3 -->
+                <article class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=600&q=60" 
+                            alt="Jalapeno Cheddar" 
+                            class="w-full h-56 object-cover"
+                        >
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">Sale</span>
+                        <button class="absolute top-4 right-4 text-white bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all transform hover:scale-110" title="Remove from wishlist">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Spicy</p>
+                        <h3 class="text-xl font-bold text-gray-900 mt-2 mb-2 line-clamp-2">Jalapeno Cheddar</h3>
+                        <p class="text-sm text-gray-500 mb-3 line-clamp-2 flex-1">Bold heat balanced with creamy cheddar cheese</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-extrabold text-gray-900">$13.75</p>
+                                <p class="text-sm text-gray-400 line-through">$15.75</p>
+                                <p class="text-xs text-emerald-500 font-semibold mt-1">Save $2.00</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <button class="flex-1 px-4 py-2 rounded-full border border-gray-200 text-sm font-semibold text-gray-600 hover:border-red-400 hover:text-red-500 transition">
+                                <i class="fas fa-trash-alt mr-2"></i>Remove
+                            </button>
+                            <button class="flex-1 px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-lg hover:from-orange-600 hover:to-red-600 transition transform hover:scale-105">
+                                <i class="fas fa-cart-plus mr-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Wishlist Item 4 -->
+                <article class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=600&q=60" 
+                            alt="Herb & Garlic" 
+                            class="w-full h-56 object-cover"
+                        >
+                        <button class="absolute top-4 right-4 text-white bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all transform hover:scale-110" title="Remove from wishlist">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Gourmet</p>
+                        <h3 class="text-xl font-bold text-gray-900 mt-2 mb-2 line-clamp-2">Herb & Garlic</h3>
+                        <p class="text-sm text-gray-500 mb-3 line-clamp-2 flex-1">Mediterranean herbs and roasted garlic for a sophisticated flavor</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-extrabold text-gray-900">$11.25</p>
+                                <p class="text-sm text-gray-400 line-through">$13.25</p>
+                                <p class="text-xs text-emerald-500 font-semibold mt-1">Save $2.00</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <button class="flex-1 px-4 py-2 rounded-full border border-gray-200 text-sm font-semibold text-gray-600 hover:border-red-400 hover:text-red-500 transition">
+                                <i class="fas fa-trash-alt mr-2"></i>Remove
+                            </button>
+                            <button class="flex-1 px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-lg hover:from-orange-600 hover:to-red-600 transition transform hover:scale-105">
+                                <i class="fas fa-cart-plus mr-2"></i>Add to Cart
+                            </button>
+                        </div>
             </div>
-            
-            <div id="wishlistContent" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                <!-- Wishlist items will be loaded here -->
+                </article>
+
+                <!-- Wishlist Item 5 -->
+                <article class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=60" 
+                            alt="Black Truffle & Gouda" 
+                            class="w-full h-56 object-cover"
+                        >
+                        <span class="absolute top-4 left-4 bg-purple-500 text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">Premium</span>
+                        <button class="absolute top-4 right-4 text-white bg-black/60 hover:bg-red-500 rounded-full w-10 h-10 flex items-center justify-center transition-all transform hover:scale-110" title="Remove from wishlist">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">Limited</p>
+                        <h3 class="text-xl font-bold text-gray-900 mt-2 mb-2 line-clamp-2">Black Truffle & Gouda</h3>
+                        <p class="text-sm text-gray-500 mb-3 line-clamp-2 flex-1">Decadent truffle shavings with aged gouda cheese</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <div>
+                                <p class="text-2xl font-extrabold text-gray-900">$16.95</p>
+                                <p class="text-sm text-gray-400 line-through">$19.95</p>
+                                <p class="text-xs text-emerald-500 font-semibold mt-1">Save $3.00</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-3">
+                            <button class="flex-1 px-4 py-2 rounded-full border border-gray-200 text-sm font-semibold text-gray-600 hover:border-red-400 hover:text-red-500 transition">
+                                <i class="fas fa-trash-alt mr-2"></i>Remove
+                            </button>
+                            <button class="flex-1 px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold shadow-lg hover:from-orange-600 hover:to-red-600 transition transform hover:scale-105">
+                                <i class="fas fa-cart-plus mr-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
             </div>
 
-            <div id="wishlistRecommendations" class="hidden">
+            <!-- Recommendations Section -->
+            <div class="mt-16">
                 <div class="flex items-center justify-between mb-6">
                     <div>
                         <p class="text-sm font-semibold uppercase tracking-wide text-orange-500">Inspired by your favorites</p>
-                        <h3 class="text-3xl font-bold text-gray-900">Recommended For You</h3>
+                        <h3 class="text-3xl font-bold text-gray-900 mt-2">Recommended For You</h3>
                     </div>
-                    <a href="shop.html" class="text-sm font-semibold text-orange-600 hover:text-orange-700">View all <i class="fas fa-arrow-right ml-1"></i></a>
+                    <a href="shop.html" class="text-sm font-semibold text-orange-600 hover:text-orange-700 transition flex items-center gap-1">
+                        View all <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="wishlistRecommendationGrid"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Recommendation 1 -->
+                    <article class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img 
+                                src="https://images.unsplash.com/photo-1460306855393-0410f61241c7?auto=format&fit=crop&w=200&q=60" 
+                                alt="Maple Breakfast Links" 
+                                class="w-20 h-20 object-cover rounded-xl"
+                            >
+                            <div class="flex-1">
+                                <p class="text-xs uppercase tracking-wide text-gray-400">Breakfast</p>
+                                <h4 class="text-lg font-semibold text-gray-900 line-clamp-2">Maple Breakfast Links</h4>
+                                <p class="text-sm font-bold text-orange-600 mt-1">$9.95</p>
+                            </div>
+                        </div>
+                        <button class="w-full text-sm font-semibold text-orange-600 hover:text-orange-700 transition flex items-center justify-center gap-2">
+                            Add to cart <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </article>
+
+                    <!-- Recommendation 2 -->
+                    <article class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img 
+                                src="https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?auto=format&fit=crop&w=200&q=60" 
+                                alt="Classic Bratwurst" 
+                                class="w-20 h-20 object-cover rounded-xl"
+                            >
+                            <div class="flex-1">
+                                <p class="text-xs uppercase tracking-wide text-gray-400">Classic</p>
+                                <h4 class="text-lg font-semibold text-gray-900 line-clamp-2">Classic Bratwurst</h4>
+                                <p class="text-sm font-bold text-orange-600 mt-1">$12.99</p>
+                            </div>
+                        </div>
+                        <button class="w-full text-sm font-semibold text-orange-600 hover:text-orange-700 transition flex items-center justify-center gap-2">
+                            Add to cart <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </article>
+
+                    <!-- Recommendation 3 -->
+                    <article class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img 
+                                src="https://images.unsplash.com/photo-1446000442451-e162542e5f63?auto=format&fit=crop&w=200&q=60" 
+                                alt="Smoked Chicken Sausage" 
+                                class="w-20 h-20 object-cover rounded-xl"
+                            >
+                            <div class="flex-1">
+                                <p class="text-xs uppercase tracking-wide text-gray-400">Smoked</p>
+                                <h4 class="text-lg font-semibold text-gray-900 line-clamp-2">Smoked Chicken</h4>
+                                <p class="text-sm font-bold text-orange-600 mt-1">$10.50</p>
+                            </div>
+                        </div>
+                        <button class="w-full text-sm font-semibold text-orange-600 hover:text-orange-700 transition flex items-center justify-center gap-2">
+                            Add to cart <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </article>
+
+                    <!-- Recommendation 4 -->
+                    <article class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img 
+                                src="https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=200&q=60" 
+                                alt="Jalapeno Cheddar" 
+                                class="w-20 h-20 object-cover rounded-xl"
+                            >
+                            <div class="flex-1">
+                                <p class="text-xs uppercase tracking-wide text-gray-400">Spicy</p>
+                                <h4 class="text-lg font-semibold text-gray-900 line-clamp-2">Jalapeno Cheddar</h4>
+                                <p class="text-sm font-bold text-orange-600 mt-1">$13.75</p>
+                            </div>
+                    </div>
+                        <button class="w-full text-sm font-semibold text-orange-600 hover:text-orange-700 transition flex items-center justify-center gap-2">
+                            Add to cart <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </article>
+                </div>
             </div>
         </div>
     </section>
@@ -97,8 +355,8 @@
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
+    <script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
     <script src="assets/js/load-components.js"></script>
-    <script src="assets/js/background-animations.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/wishlist.js"></script>
 </body>

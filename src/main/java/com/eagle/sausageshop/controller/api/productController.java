@@ -103,5 +103,36 @@ public class productController {
         return Response.ok().entity(responseJson).build();
     }
 
+    @Path("/update-product/{productId}")
+    @PUT
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateProduct(
+            @PathParam("productId") int productId,
+            @FormDataParam("product") String productJson,
+            @FormDataParam("images") List<FormDataBodyPart> images,
+            @Context HttpServletRequest request,
+            @Context ServletContext context) {
+        
+        JsonObject response = new JsonObject();
+        
+        // Parse product JSON
+        ProductDTO productDTO;
+        try {
+            productDTO = AppUtil.GSON.fromJson(productJson, ProductDTO.class);
+        } catch (Exception e) {
+            response.addProperty("status", false);
+            response.addProperty("message", "Invalid product data format!");
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(response.toString())
+                    .build();
+        }
+        
+        // Call service to update product with optional images
+        ProductService productService = new ProductService();
+        String responseJson = productService.updateProductWithImages(productId, productDTO, images, request, context);
+        return Response.ok().entity(responseJson).build();
+    }
+
 
 }

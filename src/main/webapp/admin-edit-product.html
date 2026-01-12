@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product - Admin Panel</title>
+    <title>Edit Product - Admin Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
@@ -30,10 +30,10 @@
                    class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
                    data-page="dashboard"><i class="fas fa-chart-line mr-3 w-5"></i><span>Dashboard</span></a></li>
             <li><a href="admin-products.html"
-                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg bg-orange-500 text-white"
                    data-page="products"><i class="fas fa-box mr-3 w-5"></i><span>Products</span></a></li>
             <li><a href="admin-add-product.html"
-                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg bg-orange-500 text-white"
+                   class="admin-nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition text-gray-300"
                    data-page="add-product"><i class="fas fa-plus-circle mr-3 w-5"></i><span>Add Product</span></a>
             </li>
             <li><a href="admin-add-category.html"
@@ -65,7 +65,7 @@
         <div class="flex items-center justify-between px-6 py-4">
             <button id="sidebarToggle" class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg"><i
                     class="fas fa-bars text-xl"></i></button>
-            <h1 class="text-2xl font-bold text-gray-800" id="adminPageTitle">Add New Product</h1>
+            <h1 class="text-2xl font-bold text-gray-800" id="adminPageTitle">Edit Product</h1>
             <div class="flex items-center space-x-4">
                 <button id="adminThemeToggle" class="p-2 text-gray-600 hover:text-orange-500 transition"><i
                         class="fas fa-moon text-xl" id="themeIcon"></i></button>
@@ -77,15 +77,16 @@
                         <span class="hidden md:block text-gray-700 font-medium" id="adminName">Admin User</span>
                     </button>
                 </div>
+                <a href="admin-products.html" class="text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Products
+                </a>
             </div>
-            <a href="admin-products.html" class="text-gray-600 hover:text-gray-800">
-                <i class="fas fa-arrow-left mr-2"></i>Back to Products
-            </a>
         </div>
     </header>
 
     <main class="p-6">
-        <form id="addProductForm" class="bg-white rounded-lg shadow-md p-8">
+        <form id="editProductForm" class="bg-white rounded-lg shadow-md p-8">
+            <input type="hidden" id="productId" value="">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Left Column -->
                 <div class="space-y-6">
@@ -118,10 +119,6 @@
                         <select id="productCategory"
                                 class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
                             <option value="">Select Category</option>
-                            <option value="1">Chicken</option>
-                            <option value="2">Pork</option>
-                            <option value="3">Beef</option>
-                            <option value="4">Mixed</option>
                         </select>
                     </div>
 
@@ -129,7 +126,7 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Price ($) *</label>
-                            <input type="number" id="productPrice" step="0.01" min="0"
+                            <input disabled type="number" id="productPrice" step="0.01" min="0"
                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
                         </div>
                         <div>
@@ -143,7 +140,7 @@
                     <div>
                         <label class="block text-gray-700 font-semibold mb-2">Sale Price ($) <span
                                 class="text-gray-400 text-sm">(Optional)</span></label>
-                        <input type="number" id="salePrice" step="0.01" min="0"
+                        <input disabled type="number" id="salePrice" step="0.01" min="0"
                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                                placeholder="Leave empty if no sale">
                     </div>
@@ -162,8 +159,8 @@
                     <!-- Image Upload -->
                     <div>
                         <label class="block text-gray-700 font-semibold mb-2">
-                            Product Images <span class="text-red-500">*</span>
-                            <span class="text-sm text-gray-500 font-normal ml-2">(Up to 3 images)</span>
+                            Product Images
+                            <span class="text-sm text-gray-500 font-normal ml-2">(Up to 3 images - Optional to update)</span>
                         </label>
                         
                         <!-- Image Upload Grid -->
@@ -246,13 +243,13 @@
                                     <div id="dragOverlay3" class="absolute inset-0 bg-orange-500 bg-opacity-10 border-4 border-dashed border-orange-500 rounded-xl hidden items-center justify-center">
                                         <i class="fas fa-cloud-upload-alt text-4xl text-orange-500 animate-bounce"></i>
                                     </div>
+                                </div>
                             </div>
-                        </div>
                         </div>
                         
                         <p class="text-sm text-gray-500 flex items-center">
                             <i class="fas fa-info-circle mr-2 text-orange-500"></i>
-                            At least one image is required. PNG, JPG, GIF up to 5MB each
+                            Leave images empty to keep existing images. PNG, JPG, GIF up to 5MB each
                         </p>
                     </div>
                     <!-- Ingredients -->
@@ -296,10 +293,10 @@
                    class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                     Cancel
                 </a>
-                <button type="button" onclick="saveProduct();"
+                <button type="button" onclick="updateProduct();"
                         class="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:from-orange-600
                         hover:to-red-600 transition shadow-lg hover:shadow-xl transform hover:scale-105"><i
-                        class="fas fa-save mr-2"></i>Save Product
+                        class="fas fa-save mr-2"></i>Update Product
                 </button>
             </div>
         </form>
@@ -308,7 +305,7 @@
 
 <script src="assets/js/notiflix-aio-3.2.8.min.js"></script>
 <script src="assets/js/load-components.js"></script>
-<script src="assets/js/product-listing.js"></script>
+<script src="assets/js/admin-edit-product.js"></script>
 
 <script>
     // Enhanced product image upload with drag and drop
@@ -428,4 +425,3 @@
 </script>
 </body>
 </html>
-

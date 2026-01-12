@@ -5,6 +5,7 @@ window.addEventListener("load", async () => {
     });
     try {
         await loadCategories();
+        await productImages();
     } finally {
         Notiflix.Loading.remove();
     }
@@ -117,7 +118,7 @@ async function saveProduct() {
         
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 if (data.status) {
                 Notiflix.Report.success(
                     "SausageShop",

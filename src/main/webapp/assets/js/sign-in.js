@@ -23,6 +23,11 @@ async function signIn() {
         if (response.ok) {
             const data = await response.json();
             if(data.status){
+                // Set user session in SausageApp if available
+                if (window.SausageApp && data.user) {
+                    window.SausageApp.setUserSession(data.user);
+                }
+                
                 Notiflix.Report.success(
                     'SausageShop',
                     data.message,

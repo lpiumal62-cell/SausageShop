@@ -26,7 +26,6 @@ public class ProductService {
         boolean status = false;
         String message = "";
 
-        // Validate category name
         if (categoryName == null || categoryName.isBlank()) {
             message = "Category name is required!";
         } else if (image == null) {
@@ -109,7 +108,7 @@ public class ProductService {
         return AppUtil.GSON.toJson(responseObject);
     }
 
-    private static List<JsonObject> categories(List<Category> categoriesList) {
+    static List<JsonObject> categories(List<Category> categoriesList) {
         List<JsonObject> categoriesJson = new ArrayList<>();
         for (Category c : categoriesList) {
             JsonObject obj = new JsonObject();
@@ -244,6 +243,146 @@ public class ProductService {
                             }
                         }
                     }
+                }
+            }
+
+        }
+        responseObject.addProperty("status", status);
+        responseObject.addProperty("message", message);
+        return AppUtil.GSON.toJson(responseObject);
+    }
+
+    public String updateProductWithImages(int productId, ProductDTO productDTO, List<FormDataBodyPart> images, 
+                                         HttpServletRequest request, ServletContext context) {
+        JsonObject responseObject = new JsonObject();
+        boolean status = false;
+        String message = "";
+
+        // Validate product data
+        if (productDTO.getTitle() == null) {
+            message = "Product title is required!";
+        } else if (productDTO.getTitle().isBlank()) {
+            message = "Product title can not be empty!";
+        } else if (productDTO.getCategoryId() <= 0) {
+            message = "Invalid category! Please select a correct category!";
+        } else if (productDTO.getPrice() <= 0) {
+            message = "Product price must be greater than 0!";
+        } else if (productDTO.getStockQty() < 0) {
+            message = "Product stock quantity cannot be negative!";
+        } else {
+            HttpSession httpSession = request.getSession(false);
+            if (httpSession == null) {
+                message = "Session expired! Please login";
+            } else if (httpSession.getAttribute("user") == null) {
+                message = "Please login first";
+            } else {
+
+                User sessionUser = (User) httpSession.getAttribute("user");
+                Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
+                Seller seller = hibernateSession.createQuery(
+                                "FROM Seller s WHERE s.user = :user",
+                                Seller.class
+                        ).setParameter("user", sessionUser)
+                        .getSingleResultOrNull();
+
+                if (seller == null) {
+                    message = "The requested profile is not a seller account!";
+                    hibernateSession.close();
+                } else {
+
+                    if (!seller.getStatus().getValue()
+                            .equals(String.valueOf(Status.Type.APPROVED))) {
+                        message = "Seller account not approved yet!";
+                        hibernateSession.close();
+                    } else {
+                        Transaction transaction = null;
+
+                        try {
+                            transaction = hibernateSession.beginTransaction();
+
+                            // Get existing product
+                            Product product = hibernateSession.get(Product.class, productId);
+                            if (product == null) {
+                                message = "Product not found!";
+                                hibernateSession.close();
+                                responseObject.addProperty("status", false);
+                                responseObject.addProperty("message", message);
+                                return AppUtil.GSON.toJson(responseObject);
+                            }
+
+                            // Verify product belongs to the seller
+                            if (product.getSeller().getId() != seller.getId()) {
+                                message = "You don't have permission to update this product!";
+                                hibernateSession.close();
+                                responseObject.addProperty("status", false);
+                                responseObject.addProperty("message", message);
+                                return AppUtil.GSON.toJson(responseObject);
+                            }
+
+                            // Get category
+                        Category category = hibernateSession.find(
+                                Category.class,
+                                productDTO.getCategoryId()
+                        );
+
+                        if (category == null) {
+                            message = "Category not found! Please contact admin.";
+                                transaction.rollback();
+                                hibernateSession.close();
+                                responseObject.addProperty("status", false);
+                                responseObject.addProperty("message", message);
+                                return AppUtil.GSON.toJson(responseObject);
+                            }
+
+                            // Update product fields
+                                product.setTitle(productDTO.getTitle());
+                                product.setShortDescription(productDTO.getShortDescription());
+                                product.setLongDescription(productDTO.getLongDescription());
+                                product.setPrice(productDTO.getPrice());
+                                product.setSalePrice(productDTO.getSalePrice());
+                                product.setStockQuantity(productDTO.getStockQty());
+                                product.setSku(productDTO.getSku());
+                                product.setIngredients(productDTO.getIngredients());
+                                product.setCalories(productDTO.getCalories());
+                                product.setProtein(productDTO.getProtein());
+                                product.setFat(productDTO.getFat());
+                                product.setCarbs(productDTO.getCarbs());
+                            product.setCategory(category);
+
+                            // Update images if new images are provided
+                            if (images != null && !images.isEmpty()) {
+                                FileUploadService uploadService = new FileUploadService(context);
+                                List<String> imageUrls = new ArrayList<>();
+                                
+                                for (FormDataBodyPart bodyPart : images) {
+                                    InputStream inputStream = bodyPart.getEntityAs(InputStream.class);
+                                    ContentDisposition cd = bodyPart.getContentDisposition();
+                                    
+                                    FileUploadService.FileItem fileItem =
+                                            uploadService.uploadFile("product/" + productId, inputStream, cd);
+                                    
+                                    imageUrls.add(fileItem.getFullUrl());
+                                }
+                                
+                                product.setImages(imageUrls);
+                            }
+
+                            hibernateSession.merge(product);
+                            transaction.commit();
+
+                                status = true;
+                            message = "Product updated successfully!";
+
+                            } catch (Exception e) {
+                            if (transaction != null && transaction.isActive()) {
+                                transaction.rollback();
+                            }
+                                e.printStackTrace();
+                            message = "Error occurred while updating product! " + e.getMessage();
+                        } finally {
+                            hibernateSession.close();
+                            }
+                        }
                 }
             }
 
