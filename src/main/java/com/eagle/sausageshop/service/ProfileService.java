@@ -57,14 +57,14 @@ public class ProfileService {
                             .setParameter("email", sessionUser.getEmail())
                             .getSingleResult();
 
-                        transaction = hibernateSession.beginTransaction();
-                        hibernateSession.merge(dbUser);
-                        transaction.commit();
+                    transaction = hibernateSession.beginTransaction();
+                    hibernateSession.merge(dbUser);
+                    transaction.commit();
 
-                        httpSession.setAttribute("user", dbUser);
+                    httpSession.setAttribute("user", dbUser);
 
-                        status = true;
-                        message = "Password updated successfully";
+                    status = true;
+                    message = "Password updated successfully";
 
 
                 } catch (Exception e) {
@@ -98,6 +98,10 @@ public class ProfileService {
             message = "Enter a valid postal code!";
         } else if (userDTO.getCityId() == 0) {
             message = "Please select a city!";
+        } else if (userDTO.getMobile() == null || userDTO.getMobile().isBlank()) {
+            message = "Mobile is required!";
+        } else if (!userDTO.getMobile().matches(Validator.MOBILE_VALIDATION)) {
+            message = "Enter valid mobile number!";
         } else {
             HttpSession httpSession = request.getSession(false);
             if (httpSession == null) {
@@ -140,7 +144,6 @@ public class ProfileService {
                 City city = hibernateSession.find(City.class, userDTO.getCityId());
 
                 currentAddress.setCity(city);
-
                 Transaction transaction = hibernateSession.beginTransaction();
                 try {
                     hibernateSession.merge(dbUser);
@@ -173,10 +176,6 @@ public class ProfileService {
             message = "First name is required!";
         } else if (userDTO.getLastName() == null || userDTO.getLastName().isBlank()) {
             message = "Last name is required!";
-        } else if (userDTO.getMobile() == null || userDTO.getMobile().isBlank()) {
-            message = "Mobile is required!";
-        } else if (!userDTO.getMobile().matches(Validator.MOBILE_VALIDATION)) {
-            message = "Enter valid mobile number!";
         } else {
 
             HttpSession httpSession = request.getSession(false);
@@ -194,27 +193,9 @@ public class ProfileService {
                 dbUser.setLastName(userDTO.getLastName());
 
 
-                List<Address> addressList = hSession.createQuery("FROM Address a WHERE a.user=:user", Address.class)
-                        .setParameter("user", dbUser)
-                        .getResultList();
-
-
-                Address currentAddress = null;
-                if (dbUser.getAddresses() != null && !dbUser.getAddresses().isEmpty()) {
-                    currentAddress = dbUser.getAddresses().iterator().next();
-                }
-
-                if (currentAddress == null) {
-                    currentAddress = new Address();
-                    currentAddress.setUser(dbUser);
-                    dbUser.getAddresses().add(currentAddress);
-                }
-
-                currentAddress.setMobile(userDTO.getMobile());
                 Transaction transaction = hSession.beginTransaction();
                 try {
                     hSession.merge(dbUser);
-                    hSession.merge(currentAddress);
                     transaction.commit();
                     httpSession.setAttribute("user", dbUser); /// update session user
                     status = true;

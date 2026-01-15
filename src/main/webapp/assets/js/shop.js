@@ -186,15 +186,10 @@ function renderProducts(products) {
                         ${product.stockQty > 0 ? `<span class="text-xs text-green-600 font-semibold"><i class="fas fa-check-circle mr-1"></i>In Stock</span>` : '<span class="text-xs text-red-500 font-semibold"><i class="fas fa-times-circle mr-1"></i>Out of Stock</span>'}
                     </div>
                     <div class="flex gap-2">
-                        <button 
-                            onclick="addToCart(${product.id})" 
-                            class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition transform hover:scale-105 font-semibold ${product.stockQty === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
-                            ${product.stockQty === 0 ? 'disabled' : ''}
-                        >
+                        <button onclick="addToCart(${product.id}, ${product.stockQty});" class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition transform hover:scale-105 font-semibold">
                             <i class="fas fa-cart-plus mr-2"></i>Add to Cart
                         </button>
                         <button 
-                            onclick="addToWishlist(${product.id})" 
                             class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition transform hover:scale-105"
                         >
                             <i class="far fa-heart"></i>
@@ -232,20 +227,6 @@ function filterProductsByCategory(categoryId) {
     }
 }
 
-function addToCart(productId) {
-    if (window.SausageApp) {
-        window.SausageApp.addToCart(productId, 1);
-    } else {
-        console.error('SausageShop not available');
-    }
-}
-function addToWishlist(productId) {
-    if (window.SausageApp) {
-        window.SausageApp.toggleWishlist(productId);
-    } else {
-        console.error('SausageShop not available');
-    }
-}
 
 function initAdvancedSearch() {
     const searchInput = document.getElementById('searchInput');
@@ -392,40 +373,26 @@ function sortProducts(products, sortType) {
 }
 
 function clearAllFilters() {
-    // Clear search
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) searchInput.value = '';
-    
-    // Clear category
-    const categorySelect = document.getElementById('categorySelect');
-    if (categorySelect) categorySelect.value = '0';
-    
-    // Clear price range
+
     const minPrice = document.getElementById('minPrice');
     const maxPrice = document.getElementById('maxPrice');
     if (minPrice) minPrice.value = '';
     if (maxPrice) maxPrice.value = '';
-    
-    // Clear stock filter
+
     const stockFilter = document.getElementById('stockFilter');
     if (stockFilter) stockFilter.value = 'all';
     
-    // Clear sort
+
     const sortBy = document.getElementById('sortBy');
     if (sortBy) sortBy.value = 'default';
-    
-    // Clear sale checkbox
+
     const onSaleOnly = document.getElementById('onSaleOnly');
     if (onSaleOnly) onSaleOnly.checked = false;
     
-    // Reset to all products
-    filteredProducts = [...allProducts];
-    renderProducts(allProducts);
-    hideEmptyState();
-    updateProductCount(allProducts.length);
-    updateActiveFiltersCount();
+
+    applyFilters();
     
-    Notiflix.Notify.info('All filters cleared', {
+    Notiflix.Notify.info('Advanced filters cleared', {
         position: 'center-top',
         timeout: 1500
     });

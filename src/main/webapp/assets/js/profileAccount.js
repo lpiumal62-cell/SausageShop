@@ -257,12 +257,15 @@ async function profileAddressSave() {
     let lineTwo = document.getElementById("lineTwo");
     let postalCode = document.getElementById("postalCode");
     let citySelect = document.getElementById("citySelect");
+    let mobile = document.getElementById("mobile");
+
 
     const userObj = {
         lineOne: lineOne.value,
         lineTwo: lineTwo.value,
         postalCode: postalCode.value,
         cityId: citySelect.value,
+        mobile: mobile.value,
     }
     try {
         const response = await fetch("api/profiles/update-address", {
@@ -309,13 +312,13 @@ async function profileSave() {
     });
     let firstName = document.getElementById("firstName");
     let lastName = document.getElementById("lastName");
-    let mobile = document.getElementById("mobile");
+
 
 
     const userObj = {
         firstName: firstName.value,
         lastName: lastName.value,
-        mobile: mobile.value,
+
     }
 
     try {

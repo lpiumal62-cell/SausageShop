@@ -54,6 +54,7 @@ public class Product extends BaseEntity {
             name = "product_image",
             joinColumns = @JoinColumn(name = "product_id")
     )
+
     @Column(name = "image")
     private List<String> images;
 
@@ -61,6 +62,18 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;
 
+    @ManyToOne
+    @JoinColumn(name = "stock_id")
+    private Stock stock;
+
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
 
     public Seller getSeller() {
         return seller;
