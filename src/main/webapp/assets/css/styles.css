@@ -953,6 +953,28 @@ button, a, input, textarea, select {
     background-clip: text;
 }
 
+/* Animated gradient text */
+@keyframes animate-gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient {
+    background: linear-gradient(-45deg, #f97316, #ef4444, #f97316, #fb923c);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: animate-gradient 3s ease infinite;
+}
+
 /* Enhanced shadows */
 .shadow-glow {
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);

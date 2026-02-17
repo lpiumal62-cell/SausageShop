@@ -104,7 +104,7 @@ async function loadProducts() {
             allProducts = data.products || [];
             filteredProducts = [...allProducts];
             const productsGrid = document.getElementById("productsGrid");
-            
+
             if (productsGrid && allProducts.length > 0) {
                 renderProducts(allProducts);
                 updateProductCount(allProducts.length);
@@ -142,10 +142,10 @@ function renderProducts(products) {
             imageUrl = product.image;
         }
         
-        // Fix image URL
+
         imageUrl = fixImageUrl(imageUrl);
         
-        // Fallback to placeholder if still empty
+
         if (!imageUrl || imageUrl.trim() === '') {
             imageUrl = 'data:image/svg+xml,%3Csvg width=\'400\' height=\'300\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'400\' height=\'300\' fill=\'%23f3f4f6\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-family=\'Arial\' font-size=\'18\' fill=\'%239ca3af\' text-anchor=\'middle\' dy=\'.3em\'%3ENo Image%3C/text%3E%3C/svg%3E';
         }

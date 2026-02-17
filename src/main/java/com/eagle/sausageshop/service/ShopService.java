@@ -65,7 +65,7 @@ public class ShopService {
                 obj.addProperty("categoryId", p.getCategory().getId());
                 obj.addProperty("categoryName", p.getCategory().getName());
             }
-            
+
             productsJson.add(obj);
         }
         return productsJson;

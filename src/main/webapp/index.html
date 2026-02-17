@@ -37,65 +37,95 @@
 
     <!-- Hero Banner -->
     <section class="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
+        <!-- Animated Background Layers -->
         <div class="absolute inset-0 bg-gradient-to-br from-orange-600 via-red-600 to-orange-700 opacity-95"></div>
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1606755456206-b25206cde27e?w=1200'); background-size: cover; background-position: center; filter: brightness(0.7);"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        
+        <!-- Floating Decorative Elements -->
+        <div class="absolute top-20 right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse"></div>
+        <div class="absolute bottom-20 left-10 w-40 h-40 bg-orange-300/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        
         <div class="relative container mx-auto px-4 h-full flex items-center">
             <div class="text-white max-w-3xl animate-fade-in-up">
-                <div class="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
+                <div class="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 shadow-lg hover:bg-white/30 transition-all">
                     <span class="text-sm font-semibold">✨ Premium Quality Since 2016</span>
                 </div>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
-                    <span class="block">Premium Quality</span>
-                    <span class="block bg-gradient-to-r from-orange-200 to-yellow-200 bg-clip-text text-transparent">Sausages</span>
+                    <span class="block drop-shadow-2xl">Premium Quality</span>
+                    <span class="block bg-gradient-to-r from-orange-200 via-yellow-200 to-orange-200 bg-clip-text text-transparent animate-gradient">Sausages</span>
                 </h1>
-                <p class="text-xl md:text-2xl mb-10 opacity-95 leading-relaxed max-w-2xl">Handcrafted with love, made with the finest ingredients. Experience the perfect blend of tradition and quality.</p>
+                <p class="text-xl md:text-2xl mb-10 opacity-95 leading-relaxed max-w-2xl drop-shadow-lg">Handcrafted with love, made with the finest ingredients. Experience the perfect blend of tradition and quality.</p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#" class="inline-block bg-orange-600 backdrop-blur-sm text-white border-2 border-white/30 px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all transform hover:scale-105">
-                        <i class="fas fa-shopping-cart mr-2"></i>Order Now
+                    <a href="shop.html" class="group inline-block bg-orange-600 backdrop-blur-sm text-white border-2 border-white/30 px-10 py-4 rounded-xl font-bold text-lg hover:bg-orange-700 hover:border-white/50 transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                        <i class="fas fa-shopping-cart mr-2 group-hover:animate-bounce"></i>Order Now
                     </a>
-                    <a href="about.html" class="inline-block bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all transform hover:scale-105">
-                        <i class="fas fa-info-circle mr-2"></i>Learn More
+                    <a href="about.html" class="group inline-block bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/20 hover:border-white/50 transition-all transform hover:scale-105 shadow-xl">
+                        <i class="fas fa-info-circle mr-2 group-hover:rotate-12 transition-transform"></i>Learn More
                     </a>
                 </div>
             </div>
         </div>
         <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-white text-2xl opacity-70"></i>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer">
+            <i class="fas fa-chevron-down text-white text-2xl opacity-70 hover:opacity-100 transition-opacity"></i>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="section-padding bg-gradient-to-b from-white to-orange-50/30">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="inline-block mb-4 px-6 py-2 bg-orange-100 text-orange-700 rounded-full font-bold text-sm">
+                    <i class="fas fa-star mr-2"></i>Featured Products
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Our Best Sellers</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Discover our most loved products, handpicked for their exceptional quality</p>
+            </div>
+            <div id="featuredProducts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Featured products will be loaded dynamically -->
+                <div class="col-span-full text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-orange-200 border-t-orange-500"></div>
+                    <p class="mt-4 text-gray-600">Loading featured products...</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Why Choose Us -->
-    <section class="section-padding bg-white">
-        <div class="container mx-auto px-4">
+    <section class="section-padding bg-white relative overflow-hidden">
+        <!-- Decorative Background -->
+        <div class="absolute top-0 left-0 w-96 h-96 bg-orange-100/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-red-100/30 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Why Choose Us</h2>
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto">We're committed to delivering excellence in every product we create</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-xl transition-all border border-orange-100 group">
+                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-2xl transition-all border border-orange-100 group transform hover:-translate-y-2">
                     <div class="mb-6 relative inline-block">
                         <div class="absolute inset-0 bg-orange-200 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                        <i class="fas fa-award text-6xl text-orange-500 mb-4 relative z-10 group-hover:scale-110 transition-transform"></i>
+                        <i class="fas fa-award text-6xl text-orange-500 mb-4 relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-transform"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-gray-800">Premium Quality</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800 group-hover:text-orange-600 transition-colors">Premium Quality</h3>
                     <p class="text-gray-600 leading-relaxed">Only the finest ingredients in every bite, sourced from trusted suppliers</p>
                 </div>
-                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-xl transition-all border border-orange-100 group">
+                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-2xl transition-all border border-orange-100 group transform hover:-translate-y-2">
                     <div class="mb-6 relative inline-block">
                         <div class="absolute inset-0 bg-orange-200 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                        <i class="fas fa-shipping-fast text-6xl text-orange-500 mb-4 relative z-10 group-hover:scale-110 transition-transform"></i>
+                        <i class="fas fa-shipping-fast text-6xl text-orange-500 mb-4 relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-transform"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-gray-800">Fast Delivery</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800 group-hover:text-orange-600 transition-colors">Fast Delivery</h3>
                     <p class="text-gray-600 leading-relaxed">Fresh sausages delivered to your door with care and speed</p>
                 </div>
-                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-xl transition-all border border-orange-100 group">
+                <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-2xl transition-all border border-orange-100 group transform hover:-translate-y-2">
                     <div class="mb-6 relative inline-block">
                         <div class="absolute inset-0 bg-orange-200 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                        <i class="fas fa-heart text-6xl text-orange-500 mb-4 relative z-10 group-hover:scale-110 transition-transform"></i>
+                        <i class="fas fa-heart text-6xl text-orange-500 mb-4 relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-transform"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3 text-gray-800">Made with Love</h3>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800 group-hover:text-orange-600 transition-colors">Made with Love</h3>
                     <p class="text-gray-600 leading-relaxed">Handcrafted by passionate artisans who care about every detail</p>
                 </div>
             </div>
@@ -106,18 +136,24 @@
     <!-- Special Offer Banner -->
     <section class="section-padding bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        </div>
+        <!-- Animated Sparkles -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full animate-ping"></div>
+            <div class="absolute top-1/3 right-1/4 w-2 h-2 bg-white rounded-full animate-ping" style="animation-delay: 0.5s;"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-2 h-2 bg-white rounded-full animate-ping" style="animation-delay: 1s;"></div>
         </div>
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
-                <div class="inline-block mb-4 px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
+                <div class="inline-block mb-4 px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 shadow-lg animate-bounce">
                     <span class="text-sm font-bold">🎉 Special Offer</span>
                 </div>
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-6">Get 20% Off Your First Order!</h2>
-                <p class="text-xl md:text-2xl mb-8 opacity-95">Use code <span class="bg-white/20 px-4 py-2 rounded-lg font-bold">FIRST20</span> at checkout</p>
-                <a href="shop.html" class="inline-block bg-white text-orange-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-orange-50 transition-all transform hover:scale-105 shadow-2xl">
-                    Shop Now <i class="fas fa-arrow-right ml-2"></i>
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-2xl">Get 20% Off Your First Order!</h2>
+                <p class="text-xl md:text-2xl mb-8 opacity-95">Use code <span class="bg-white/20 px-4 py-2 rounded-lg font-bold border border-white/30 shadow-lg">FIRST20</span> at checkout</p>
+                <a href="shop.html" class="group inline-block bg-white text-orange-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-orange-50 transition-all transform hover:scale-105 shadow-2xl hover:shadow-orange-200/50">
+                    Shop Now <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </div>
